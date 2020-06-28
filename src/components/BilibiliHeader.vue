@@ -22,7 +22,7 @@
               </li>
               <li @mouseover="showMengzhan" @mouseleave="hideMengzhan">
                 <a title="萌站" :class="{fontWhite: headerData.style === 1}">萌站</a>
-                <header-slide class="mengzhan" ref="mengzhan">
+                <HeaderSlide class="mengzhan" ref="mengzhan">
                   <div class="title">前线动态</div>
                   <ul>
                    <li>
@@ -32,7 +32,7 @@
                       <img :src="solveImgUrl('https://i0.hdslb.com/bfs/bangumi/e6a31c225e6762bfa2a5531887793687c358c82e.jpg_280x85.jpg')">
                     </li>
                   </ul>
-                </header-slide>
+                </HeaderSlide>
               </li>
             </ul>
           </div>
@@ -121,7 +121,7 @@
               </li>
               <li @mouseover="showLookLater" @mouseleave="hideLookLater">
                 <a class="userControl" href="" title="稍后再看" :class="{fontWhite: headerData.style === 1}">稍后再看</a>
-                <header-slide class="lookLater" ref="lookLater">
+                <HeaderSlide class="lookLater" ref="lookLater">
                   <ul>
                     <li>
                       <a href="https://bangumi.bilibili.com/anime/6339/play#113364" target="_blank">欢迎来到实力至上主义的教室 : 第12话</a>
@@ -131,11 +131,11 @@
                   </ul>
                   <button slot="btn">播放全部<span> ></span></button>
                   <button slot="btn">查看全部<span> ></span></button>
-                </header-slide>
+                </HeaderSlide>
               </li>
               <li @mouseover="showFav" @mouseleave="hideFav">
                 <a class="userControl" href="" title="收藏夹" :class="{fontWhite: headerData.style === 1}">收藏夹</a>
-                <header-slide class="fav" ref="fav">
+                <HeaderSlide class="fav" ref="fav">
                   <ul>
                     <li><a>欢迎来到实力至上主义的教室 : 第12话</a></li>
                     <li><a>妄想学生会 剧场版</a></li>
@@ -143,11 +143,11 @@
                   </ul>
                   <button slot="btn">播放全部<span> ></span></button>
                   <button slot="btn">查看全部<span> ></span></button>
-                </header-slide>
+                </HeaderSlide>
               </li>
               <li @mouseover="showHistory" @mouseleave="hideHistory">
                 <a class="userControl" href="" title="历史" :class="{fontWhite: headerData.style === 1}">历史</a>
-                <header-slide class="history" ref="history">
+                <HeaderSlide class="history" ref="history">
                   <div class="today">今日</div>
                   <ul>
                     <li><a>【Lex】震惊，二次元公司居然是这个样子的！</a></li>
@@ -159,7 +159,7 @@
                     <li><a>papi的办公室玩耍——粤语音调说普通话</a></li>
                   </ul>
                   <button slot="btn">查看更多<span> ></span></button>
-                </header-slide>
+                </HeaderSlide>
               </li>
               <li class="tougao" @mouseover="showtougao" @mouseleave="hidetougao">
                 <a class="userControl" href="" title="投稿">投 稿</a>
@@ -200,7 +200,7 @@
 </template>
 
 <script>
-  import {throttle, solveImgUrl} from '@/common/js/utils'
+  import {solveImgUrl} from '@/common/js/utils'
   import HeaderSlide from '@/base/HeaderSlide'
   import api from '@/common/js/api'
 
@@ -239,44 +239,60 @@
         if (!this.headerData.name) return
         this.$refs.headerTitle.style.opacity = 0
       },
-      avatarBigger: throttle(function () {
-        this.$refs.avatar.style.transform = 'scale(1.7)'
-        this.$refs.avatar.style.border = '1px solid white'
-        this.$refs.userDetail.style.transform = 'scale(1,1)'
-      }, 300),
-      avatarSmaller: throttle(function () {
-        this.$refs.avatar.style.transform = 'scale(1)'
-        this.$refs.avatar.style.border = '0'
-        this.$refs.userDetail.style.transform = 'scale(1,0)'
-      }, 300),
-      showQR: throttle(function () {
-        this.$refs.mobileQR.style.display = 'block'
-      }, 300),
-      hideQR: throttle(function () {
-        this.$refs.mobileQR.style.display = 'none'
-      }, 300),
-      showMsgContainer: throttle(function () {
-        this.$refs.msgContainer.style.visibility = 'visible'
-        this.$refs.msgContainer.style.opacity = 1
-      }, 300),
-      hideMsgContainer: throttle(function () {
-        this.$refs.msgContainer.style.visibility = 'hidden'
-        this.$refs.msgContainer.style.opacity = 0
-      }, 300),
-      showtougao: throttle(function () {
-        this.$refs.tougaoContainer.style.display = 'block'
-      }, 100),
-      hidetougao: throttle(function () {
-        this.$refs.tougaoContainer.style.display = 'none'
-      }, 100),
-      showCondition: throttle(function () {
-        this.$refs.condition.style.visibility = 'visible'
-        this.$refs.condition.style.opacity = 1
-      }, 300),
-      hideCondition: throttle(function () {
-        this.$refs.condition.style.visibility = 'hidden'
-        this.$refs.condition.style.opacity = 0
-      }, 300),
+      avatarBigger: function () {
+        this.$nextTick(() => {
+          this.$refs.avatar.style.transform = 'scale(1.7)'
+          this.$refs.avatar.style.border = '1px solid white'
+          this.$refs.userDetail.style.transform = 'scale(1,1)'
+        })
+      },
+      avatarSmaller: function () {
+        this.$nextTick(() => {
+          this.$refs.avatar.style.transform = 'scale(1)'
+          this.$refs.avatar.style.border = '0'
+          this.$refs.userDetail.style.transform = 'scale(1,0)'
+        })
+      },
+      showQR: function () {
+        this.$nextTick(() => { this.$refs.mobileQR.style.display = 'block' })
+      },
+      hideQR: function () {
+        this.$nextTick(() => { this.$refs.mobileQR.style.display = 'none' })
+      },
+      showMsgContainer: function () {
+        this.$nextTick(() => {
+          this.$refs.msgContainer.style.visibility = 'visible'
+          this.$refs.msgContainer.style.opacity = 1
+        })
+      },
+      hideMsgContainer: function () {
+        this.$nextTick(() => {
+          this.$refs.msgContainer.style.visibility = 'hidden'
+          this.$refs.msgContainer.style.opacity = 0
+        })
+      },
+      showtougao: function () {
+        this.$nextTick(() => {
+          this.$refs.tougaoContainer.style.display = 'block'
+        })
+      },
+      hidetougao: function () {
+        this.$nextTick(() => {
+          this.$refs.tougaoContainer.style.display = 'none'
+        })
+      },
+      showCondition: function () {
+        this.$nextTick(() => {
+          this.$refs.condition.style.visibility = 'visible'
+          this.$refs.condition.style.opacity = 1
+        })
+      },
+      hideCondition: function () {
+        this.$nextTick(() => {
+          this.$refs.condition.style.visibility = 'hidden'
+          this.$refs.condition.style.opacity = 0
+        })
+      },
       showLookLater () {
         this.$refs.lookLater.show()
       },
@@ -295,14 +311,18 @@
       hideHistory () {
         this.$refs.history.hide()
       },
-      showMengzhan: throttle(function () {
-        this.$refs.mengzhan.$el.style.visibility = 'visible'
-        this.$refs.mengzhan.$el.style.opacity = 1
-      }, 300),
-      hideMengzhan: throttle(function () {
-        this.$refs.mengzhan.$el.style.visibility = 'hidden'
-        this.$refs.mengzhan.$el.style.opacity = 0
-      }, 300)
+      showMengzhan: function () {
+        this.$nextTick(() => {
+          this.$refs.mengzhan.$el.style.visibility = 'visible'
+          this.$refs.mengzhan.$el.style.opacity = 1
+        })
+      },
+      hideMengzhan: function () {
+        this.$nextTick(() => {
+          this.$refs.mengzhan.$el.style.visibility = 'hidden'
+          this.$refs.mengzhan.$el.style.opacity = 0
+        })
+      }
     }
   }
 </script>

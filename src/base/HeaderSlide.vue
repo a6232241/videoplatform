@@ -8,19 +8,24 @@
 </template>
 
 <script>
-  import {throttle} from '@/common/js/utils'
+  // import {throttle} from '@/common/js/utils'
 
   export default {
     name: '',
     methods: {
-      show: throttle(() => {
-        this.$refs.headerSlide.style.visibility = 'visible'
-        this.$refs.headerSlide.style.opacity = 1
-      }, 300),
-      hide: throttle(() => {
-        this.$refs.headerSlide.style.visibility = 'hidden'
-        this.$refs.headerSlide.style.opacity = 0
-      }, 300)
+
+      show: function () {
+        this.$nextTick(() => {
+          this.$refs.headerSlide.style.visibility = 'visible'
+          this.$refs.headerSlide.style.opacity = 1
+        })
+      },
+      hide: function () {
+        this.$nextTick(() => {
+          this.$refs.headerSlide.style.visibility = 'hidden'
+          this.$refs.headerSlide.style.opacity = 0
+        })
+      }
     }
   }
 </script>
