@@ -37,7 +37,9 @@
             </ul>
           </div>
           <div class="user">
-            <ul>
+            <BilibiliLogin></BilibiliLogin>
+            <!-- <ul v-if="loggedIn"> -->
+              <ul>
               <li class="user" @mouseover="avatarBigger" @mouseleave="avatarSmaller">
                 <div class="detail" ref="userDetail">
                   <div class="username"><a href="https://github.com/summerscar/bilibli-vue " target="_blank">bilibli-vue</a></div>
@@ -202,6 +204,7 @@
 <script>
   import {solveImgUrl} from '@/common/js/utils'
   import HeaderSlide from '@/base/HeaderSlide'
+  import BilibiliLogin from '@/base/BilibiliLogin'
   import api from '@/common/js/api'
 
   export default {
@@ -214,7 +217,8 @@
       }
     },
     components: {
-      HeaderSlide
+      HeaderSlide,
+      BilibiliLogin
     },
     created () {
       this.getHeaderData()
