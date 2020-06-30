@@ -1,13 +1,24 @@
 <template>
-  <ul class="user-icon login">
-    <li>登入</li>
+  <ul class='user-icon login'>
+    <li @mouseover="showLogin_signup" @mouseleave="hideLogin_signup">
+      <a href='#' class='userControl'>登入</a>
+      <HeaderSlide class='login_signup' ref='login_signup'>
+        <button slot='btn'>
+          註冊
+        </button>
+        <button slot='btn'>
+          登入
+        </button>
+      </HeaderSlide>
+    </li>
     <li>
-      <a href="#" class="userControl signup">註冊</a>
+      <a href='#' class='userControl signup'>註冊</a>
     </li>
   </ul>
 </template>
 
 <script>
+import HeaderSlide from '@/base/HeaderSlide'
 // import axios from 'axios'
 // axios.defaults.withCredentials = true
 export default {
@@ -18,8 +29,17 @@ export default {
       // username: '',
       // password: ''
     }
-  }
-  //   methods: {
+  },
+  components: {
+    HeaderSlide
+  },
+  methods: {
+    showLogin_signup () {
+      this.$refs.login_signup.show()
+    },
+    hideLogin_signup () {
+      this.$refs.login_signup.hide()
+    }
   //     login() {
   //       var params = new URLSearchParams()
   //       params.append('username', this.username)
@@ -37,14 +57,14 @@ export default {
   //       var d = new Date()
   //       return d.getFullYear()
   //     }
-  //   }
+  }
 }
 </script>
 
-<style  lang="scss" scoped>
-  @import "../common/style/variable";
-  // .user-icon {
-  //   display: flex;
-  //   align-items: center;
-  // }
+<style  lang='scss' scoped>
+@import '../common/style/variable'
+// .user-icon {
+//   display: flex
+//   align-items: center
+// }
 </style>

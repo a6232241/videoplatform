@@ -37,9 +37,23 @@
             </ul>
           </div>
           <div class="user">
-            <BilibiliLogin></BilibiliLogin>
-            <!-- <ul v-if="loggedIn"> -->
-              <ul>
+            <ul class='user-icon login'>
+              <li @mouseover="showLogin_signup" @mouseleave="hideLogin_signup">
+                <a href='#' class='userControl'>登入</a>
+                <HeaderSlide class='login_signup' ref='login_signup'>
+                  <button slot='btn'>
+                    註冊
+                  </button>
+                  <button slot='btn'>
+                    登入
+                  </button>
+                </HeaderSlide>
+              </li>
+              <li>
+                <a href='#' class='userControl signup'>註冊</a>
+              </li>
+            </ul>
+            <ul v-if="logged">
               <li class="user" @mouseover="avatarBigger" @mouseleave="avatarSmaller">
                 <div class="detail" ref="userDetail">
                   <div class="username"><a href="https://github.com/summerscar/bilibli-vue " target="_blank">bilibli-vue</a></div>
@@ -213,7 +227,8 @@
       return {
         conditionActive: 1,
         headerData: {},
-        defaultWord: {}
+        defaultWord: {},
+        loggedIn: false
       }
     },
     components: {
@@ -326,6 +341,13 @@
           this.$refs.mengzhan.$el.style.visibility = 'hidden'
           this.$refs.mengzhan.$el.style.opacity = 0
         })
+      },
+
+      showLogin_signup () {
+        this.$refs.login_signup.show()
+      },
+      hideLogin_signup () {
+        this.$refs.login_signup.hide()
       }
     }
   }
@@ -360,7 +382,6 @@
 
   header {
     width: 100%;
-
 
     div.header{
       height: 170px;
@@ -885,6 +906,14 @@
                 }
                 button {
                   width: 90%;
+                }
+              }
+
+              div.login_signup {
+                position: absolute;
+                left: -145px;
+                button {
+                  width: 45%;
                 }
               }
             }
