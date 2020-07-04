@@ -2,8 +2,8 @@
   <div id="app">
     <bilibili-header></bilibili-header>
     <div class="main_warp">
-    <bilibili-menu></bilibili-menu>
-    <router-view></router-view>
+      <bilibili-menu v-if="$route.path=='/'"></bilibili-menu>
+      <router-view></router-view>
     </div>
     <bilibili-footer></bilibili-footer>
   </div>

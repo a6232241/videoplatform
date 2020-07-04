@@ -7,7 +7,7 @@
         <div class="bar">
           <div class="index">
             <ul>
-              <li class="logo"><a :class="{fontWhite: headerData.style === 1}">主站</a></li>
+              <li class="logo"><a :class="{fontWhite: headerData.style === 1}" href="/">主站</a></li>
               <li><a title="画友" :class="{fontWhite: headerData.style === 1}">画友</a></li>
               <li><a title="游戏中心" :class="{fontWhite: headerData.style === 1}">游戏中心</a></li>
               <li><a title="直播" :class="{fontWhite: headerData.style === 1}">直播</a></li>
@@ -36,24 +36,31 @@
               </li>
             </ul>
           </div>
+          <div class="search">
+            <div>
+              <form class="searchform">
+                <input type="text" :placeholder="defaultWord.show"><button></button>
+              </form>
+            </div>
+          </div>
           <div class="user">
             <ul class='user-icon login'>
               <li @mouseover="showLogin_signup" @mouseleave="hideLogin_signup">
-                <a href='#' class='userControl'>登入</a>
+                <a href='/login' class='userControl'>登入</a>
                 <HeaderSlide class='login_signup' ref='login_signup'>
                   <button slot='btn'>
-                    註冊
+                    <a href='/signup' class='userControl signup' style="display:block">註冊</a>
                   </button>
                   <button slot='btn'>
-                    登入
+                    <a href='/login' class='userControl' style="display:block">登入</a>
                   </button>
                 </HeaderSlide>
               </li>
               <li>
-                <a href='#' class='userControl signup'>註冊</a>
+                <a href='/signup' class='userControl signup'>註冊</a>
               </li>
             </ul>
-            <ul v-if="logged">
+            <ul v-if="loggedIn">
               <li class="user" @mouseover="avatarBigger" @mouseleave="avatarSmaller">
                 <div class="detail" ref="userDetail">
                   <div class="username"><a href="https://github.com/summerscar/bilibli-vue " target="_blank">bilibli-vue</a></div>
@@ -205,12 +212,6 @@
       </div>
       <a href=""><img class="logo" :src="headerData.litpic"></a>
       <a v-if="headerData.name" class="headerTitle" :href="headerData.url" target="_blank" ref="headerTitle">{{headerData.name}}</a>
-      <div class="search">
-        <a href=""><span class="title">排行榜</span></a>
-        <div>
-          <input type="text" :placeholder="defaultWord.show"><button></button>
-        </div>
-      </div>
     </div>
   </header>
 </template>
@@ -401,12 +402,16 @@
         position: absolute;
         height: 42px;
         width: 100%;
+        padding: 10px 24px;
 
         div.bar{
           max-width: $max-width;
           min-width: $min-width;
-          margin:0 auto;
+          display: flex;
           height: 100%;
+          align-items: flex-start;
+          justify-content: space-between;
+
           a:hover{
             text-decoration: none;
           }
@@ -959,11 +964,8 @@
         opacity: 0;
       }
       div.search {
-        z-index: 0;
-        position: absolute;
-        left: 50%;
-        top: 66%;
-        transform: translateX(250px);
+        width: 500px;
+        margin: 0 10px;
         a {
           vertical-align: top;
           display: inline-block;
@@ -986,31 +988,38 @@
         }
         div {
           vertical-align: top;
-          display: inline-block;
           background-color: rgba(255, 255, 255, 0.8);
           box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.3);
           border-radius: 3px;
           transition: all 0.2s;
-          input {
-            padding: 0 3px;
-            width: 200px;
-            line-height: 30px;
-            font-size: 12px;
-            outline: 0;
-            border: 0;
-            display: inline-block;
-            vertical-align: top;
-            background-color: transparent;
-          }
-          button {
-            vertical-align: top;
-            background: url(//static.hdslb.com/images/base/icons.png) -653px -720px;
-            width: 48px;
-            height: 32px;
-            border:0;
-          }
-          &:hover {
-            background-color: rgba(255, 255, 255, 1);
+
+          .searchform {
+            display: block;
+            padding: 0 5px 0 16px;
+            display: flex;
+
+            input {
+              padding: 0 3px;
+              width: 100%;
+              height: 34px;
+              line-height: 30px;
+              font-size: 12px;
+              outline: 0;
+              border: 0;
+              overflow: hidden;
+              background-color: transparent;
+            }
+            button {
+              background: url(//static.hdslb.com/images/base/icons.png) -653px -720px;
+              width: 48px;
+              height: 32px;
+              border:0;
+              margin: 0;
+              cursor: pointer;
+            }
+            &:hover {
+              background-color: rgba(255, 255, 255, 1);
+            }
           }
         }
 
