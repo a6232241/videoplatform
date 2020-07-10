@@ -323,11 +323,11 @@
     padding-top: 10px;
     div.menu {
       display: inline-block;
-
+      width: 90%;
       ul {
 
         li {
-          padding-right: 30px;
+          padding-right: 2%;
           float: left;
           position: relative;
           &:hover{

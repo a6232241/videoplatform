@@ -16,6 +16,15 @@
 
   export default {
     name: 'app',
+    // 動態分配路由title
+    watch: {
+      $route: {
+        immediate: true,
+        handler (to, from) {
+          document.title = to.meta.title || '首頁'
+        }
+      }
+    },
     components: {
       BilibiliHeader,
       BilibiliFooter,
@@ -25,11 +34,10 @@
 </script>
 
 <style lang="scss" scoped>
-#app {
-  div.main_warp {
-    max-width: 1160px;
-    min-width: 990px;
-    margin: 0 auto;
-  }
+#app > * {
+  min-width: 980px;
+}
+div.main_warp {
+  margin: 0 15%;
 }
 </style>

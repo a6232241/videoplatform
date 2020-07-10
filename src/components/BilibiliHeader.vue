@@ -44,7 +44,7 @@
             </div>
           </div>
           <div class="user">
-            <ul class='user-icon login'>
+            <ul v-if="!loggedIn" class='user-icon login'>
               <li @mouseover="showLogin_signup" @mouseleave="hideLogin_signup">
                 <a href='/login' class='userControl'>登入</a>
                 <HeaderSlide class='login_signup' ref='login_signup'>
@@ -60,7 +60,7 @@
                 <a href='/signup' class='userControl signup'>註冊</a>
               </li>
             </ul>
-            <ul v-if="loggedIn">
+            <ul  v-if="loggedIn" >
               <li class="user" @mouseover="avatarBigger" @mouseleave="avatarSmaller">
                 <div class="detail" ref="userDetail">
                   <div class="username"><a href="https://github.com/summerscar/bilibli-vue " target="_blank">bilibli-vue</a></div>
@@ -388,7 +388,7 @@
       height: 170px;
       background-position: center;
       position: relative;
-
+      
       div.bgFlur {
         width: 100%;
         position: absolute;
@@ -397,19 +397,21 @@
         background-position: 50% 10px;
         height: 62px;
       }
+        
 
       div.barContainer {
+        width: 100%; 
+        box-sizing: border-box;
+        -webkit-box-sizing:border-box;
+        -moz-box-sizing: border-box;
         position: absolute;
-        height: 42px;
-        width: 100%;
         padding: 10px 24px;
 
         div.bar{
-          max-width: $max-width;
           min-width: $min-width;
           display: flex;
           height: 100%;
-          align-items: flex-start;
+          align-items: center;
           justify-content: space-between;
 
           a:hover{
@@ -483,8 +485,8 @@
             float: right;
             li {
               float: left;
-
               position: relative;
+
               a.userControl {
                 color: black;
                 line-height: 42px;
@@ -887,14 +889,14 @@
               }
               div.fav {
                 position: absolute;
-                left: -145px;
+                left: -200px;
                 button {
                   width: 45%;
                 }
               }
               div.history {
                 position: absolute;
-                left: -145px;
+                left: -235px;
                 div.today,div.kino {
                   font-size: 12px;
                   padding: 3px 15px;
@@ -916,7 +918,7 @@
 
               div.login_signup {
                 position: absolute;
-                left: -145px;
+                left: -250px;
                 button {
                   width: 45%;
                 }
@@ -939,6 +941,67 @@
                 color: #66ccff;
               }
             }
+          }
+          div.search {
+            width: 500px;
+            margin: 0 10px;
+            a {
+              vertical-align: top;
+              display: inline-block;
+              background-color: rgba(255, 255, 255, 0.8);
+              box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.3);
+              border-radius: 3px;
+              transition: all 0.2s;
+              span.title {
+                display: inline-block;
+                font-size: 12px;
+                line-height: 32px;
+                padding-left: 26px;
+                padding-right: 5px;
+                color: $BpinkText;
+                background: url(//static.hdslb.com/images/base/icons.png) -659px -657px no-repeat
+              }
+              &:hover {
+                background-color: rgba(255, 255, 255, 1);
+              }
+            }
+            div {
+              vertical-align: top;
+              background-color: rgba(255, 255, 255, 0.8);
+              box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.3);
+              border-radius: 3px;
+              transition: all 0.2s;
+
+              .searchform {
+                display: block;
+                padding: 0 5px 0 16px;
+                display: flex;
+
+                input {
+                  padding: 0 3px;
+                  width: 100%;
+                  height: 34px;
+                  line-height: 30px;
+                  font-size: 12px;
+                  outline: 0;
+                  border: 0;
+                  overflow: hidden;
+                  background-color: transparent;
+                }
+                button {
+                  background: url(//static.hdslb.com/images/base/icons.png) -653px -720px;
+                  width: 48px;
+                  height: 32px;
+                  border:0;
+                  margin: 0;
+                  cursor: pointer;
+                }
+                &:hover {
+                  background-color: rgba(255, 255, 255, 1);
+                }
+              }
+            }
+
           }
         }
       }
@@ -963,67 +1026,12 @@
         transition: all .3s;
         opacity: 0;
       }
-      div.search {
-        width: 500px;
-        margin: 0 10px;
-        a {
-          vertical-align: top;
-          display: inline-block;
-          background-color: rgba(255, 255, 255, 0.8);
-          box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.3);
-          border-radius: 3px;
-          transition: all 0.2s;
-          span.title {
-            display: inline-block;
-            font-size: 12px;
-            line-height: 32px;
-            padding-left: 26px;
-            padding-right: 5px;
-            color: $BpinkText;
-            background: url(//static.hdslb.com/images/base/icons.png) -659px -657px no-repeat
-          }
-          &:hover {
-            background-color: rgba(255, 255, 255, 1);
-          }
-        }
-        div {
-          vertical-align: top;
-          background-color: rgba(255, 255, 255, 0.8);
-          box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.3);
-          border-radius: 3px;
-          transition: all 0.2s;
+    }
+  }
 
-          .searchform {
-            display: block;
-            padding: 0 5px 0 16px;
-            display: flex;
-
-            input {
-              padding: 0 3px;
-              width: 100%;
-              height: 34px;
-              line-height: 30px;
-              font-size: 12px;
-              outline: 0;
-              border: 0;
-              overflow: hidden;
-              background-color: transparent;
-            }
-            button {
-              background: url(//static.hdslb.com/images/base/icons.png) -653px -720px;
-              width: 48px;
-              height: 32px;
-              border:0;
-              margin: 0;
-              cursor: pointer;
-            }
-            &:hover {
-              background-color: rgba(255, 255, 255, 1);
-            }
-          }
-        }
-
-      }
+  @media screen and (max-width: 1390px) {
+    div.barContainer {
+      padding: 0px;
     }
   }
 </style>
