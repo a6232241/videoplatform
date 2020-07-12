@@ -1,65 +1,62 @@
 <template>
-<div id="app">
-    <main>
-      <p class='title'>註冊</p>
-      <form class="register-form" method="post" action="#">
-        <input type="text" placeholder="暱稱" required>
-        <input type="password" placeholder="密碼" required>
-        <input type="re-password" placeholder="再次輸入密碼" required>
-        <input type="text" placeholder="電話號碼" required>
-        <div>
-          <input type="checkbox" id="contract" required>
-          <label for="contract" class="agreement">我已同意<a href="#">用戶使用協議</a>和<a href="#">隱私政策</a></label>
-        </div>
-        <button>註冊</button>
-      </form>
-    </main>
-</div>    
+  <div id='app'>
+    <div class='form'>
+      <field
+        v-for='(fied, key) in registerForm.schema'
+        :key='key'
+        :type='field.type'
+        v-model='registerForm.data[key]'
+      ></field>
+    </div>
+  </div>
 </template>
 
 <script>
-  import BilibiliHeader from '@/components/BilibiliHeader'
-  import BilibiliFooter from '@/components/BilibiliFooter'
-  // import login from '@/common/js/login'
+import BilibiliHeader from '@/components/BilibiliHeader'
+import BilibiliFooter from '@/components/BilibiliFooter'
+import Field from '@/components/Field'
 
-  export default {
-    name: '',
-    components: {
-      BilibiliHeader,
-      BilibiliFooter
+export default {
+  name: '',
+  components: {
+    BilibiliHeader,
+    BilibiliFooter,
+    Field
+  },
+  data () {
+    return {
+      registerForm: undefined
     }
-  }
-</script>
+  },
+  async asyncData () {
+    const registerForm = {
+      schema: {
+        name: { label: '姓名', type: 'text' },
+        email: { label: 'Email', type: 'text' },
+        password: { label: '密碼', type: 'password' },
+        role: {
+          label: '角色',
+          type: 'select',
+          options: {
+            selectOptions: [
+              { label: '管理者', value: 0 },
+              { label: '一般使用者', value: 1 }
+            ]
+          }
+        },
+        effectiveAt: { label: '生效日期', type: 'datetime' }
+      },
+      data: {
+        name: undefined,
+        email: undefined,
+        password: undefined,
+        role: 1,
+        effectiveAt: undefined
+      },
+      errorMessages: {}
+    }
 
-<style lang="scss" scoped>
-main {
-  padding: 10px 10%;
-
-  .title {
-    font-size: 38px;
-    text-align: center;
-  }
-  form {
-    display: flex;
-    flex-flow: column wrap;
-    padding: 0 20%;
-    
-    input {
-      padding: 10px;
-      margin: 15px 0;
-    }
-    #contract {
-      display: inline-block;
-      // position: absolute;
-      
-    }
-    .agreement {
-      display: inline-block;
-
-      a {
-        text-decoration: underline;
-      }
-    }
+    return { registerForm }
   }
 }
-</style>
+</script>
