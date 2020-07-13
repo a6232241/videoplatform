@@ -2,12 +2,12 @@
   <main class='field'>
     <p class='title'>註冊</p>
     <form class='register-form' method='post' action='#'>
-      <input v-model='fieldValue' type='text' name='name' placeholder='暱稱' required />
-      <input v-model='fieldValue' type='password' name='pwd' placeholder='密碼' required />
-      <input v-model='fieldValue' type='password' name='re-pwd' placeholder='再次輸入密碼' required />
-      <input v-model='fieldValue' type='text' name='M.P' placeholder='電話號碼' required />
+      <input v-model='nameVal' type='text' name='name' placeholder='暱稱' required />
+      <input v-model='pwdVal' type='password' name='pwd' placeholder='密碼' required />
+      <input v-model='rePwdVal' type='password' name='re-pwd' placeholder='再次輸入密碼' required />
+      <input v-model='mobilePhoneVal' type='text' name='mobilePhone' placeholder='電話號碼' required />
       <div>
-        <input v-model='fieldValue' type='checkbox' id='contract' required />
+        <input v-model='contractVal' type='checkbox' id='contract' required />
         <label for='contract' class='agreement'>
           我已同意
           <a href='#'>用戶使用協議</a>和
@@ -24,23 +24,40 @@ export default {
   name: 'field',
   props: {
     // label: { type: String, default: '' },
-    type: { type: String, default: 'text' },
-    value: { required: true },
-    errorMessages: {
-      type: Array,
-      default: () => {
-        return []
-      }
-    }
+    // type: { type: String, default: 'text' },
+    // name: { type: String, default: '' },
+    value: { required: true }
+    // errorMessages: {
+    //   type: Array,
+    //   default: () => {
+    //     return []
+    //   }
+    // }
   },
   data () {
     return {
       // 由於我們欄位值會變動，所以要把 props 中的 value 賦值到 data 中的屬性
-      fieldValue: this.value
+      nameVal: this.value,
+      pwdVal: this.value,
+      rePwdVal: this.value,
+      mobilePhoneVal: this.value,
+      contractVal: this.value
     }
   },
   watch: {
-    fieldValue () {
+    nameVal () {
+      this.inputEmit()
+    },
+    pwdVal () {
+      this.inputEmit()
+    },
+    rePwdVal () {
+      this.inputEmit()
+    },
+    mobilePhoneVal () {
+      this.inputEmit()
+    },
+    contractVal () {
       this.inputEmit()
     }
   },

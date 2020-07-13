@@ -13,11 +13,6 @@ const routes = [
     component: BilibiliIndex
   },
   {
-    path: '/',
-    name: 'BilibiliIndex',
-    component: BilibiliIndex
-  },
-  {
     path: '/login',
     name: 'BilibiliLogin',
     component: BilibiliLogin,
