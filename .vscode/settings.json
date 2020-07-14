@@ -1,5 +1,24 @@
 {
     "editor.tabSize": 4,
+    "editor.formatOnSave": false,
     "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
     "javascript.format.insertSpaceAfterConstructor": true
+
+    // 沒套用
+    // "prettier.semi": false,
+    // "prettier.singleQuote": true,
+    // "prettier.requirePragma": true,
+    // "vetur.format.defaultFormatterOptions": {
+
+    //     "js-beautify-html": {
+    //         "wrap_attributes": "force-expand-multiline"
+    //     },
+    //     "prettyhtml": {
+    //         "printWidth": 100,
+    //         "singleQuote": true,
+    //         "wrapAttributes": false,
+    //         "sortAttributes": false
+    //     }
+    // },
+    // "prettier.jsxSingleQuote": true
 }

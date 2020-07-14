@@ -1,10 +1,9 @@
 <template>
   <div id='app'>
     <div class='form'>
-      <field v-for="(field, key) in registerForm.schema" :key="key"
-          :name="field.name"
-          v-model="registerForm.data[key]">
-      </field>
+      <field v-on:input="translateText"></field>
+      <!-- <input v-for='(field, key) in registerForm.schema' :key='key' v-model='registerForm.data[key]'> -->
+      <!-- <p v-for='(field, key) in registerForm.data' :key='key'>{{field}}</p> -->
     </div>
   </div>
 </template>
@@ -37,6 +36,11 @@ export default {
           phone: undefined
         }
       }
+    }
+  },
+  methods: {
+    translateText: function (text) {
+      alert(text)
     }
   }
 }

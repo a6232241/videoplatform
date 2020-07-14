@@ -22,18 +22,6 @@
 <script>
 export default {
   name: 'field',
-  props: {
-    // label: { type: String, default: '' },
-    // type: { type: String, default: 'text' },
-    // name: { type: String, default: '' },
-    value: { required: true }
-    // errorMessages: {
-    //   type: Array,
-    //   default: () => {
-    //     return []
-    //   }
-    // }
-  },
   data () {
     return {
       // 由於我們欄位值會變動，所以要把 props 中的 value 賦值到 data 中的屬性
@@ -46,24 +34,19 @@ export default {
   },
   watch: {
     nameVal () {
-      this.inputEmit()
+      this.$emit('input', this.nameVal)
     },
     pwdVal () {
-      this.inputEmit()
+      this.$emit('input', this.pwdVal)
     },
     rePwdVal () {
-      this.inputEmit()
+      this.$emit('input', this.rePwdVal)
     },
     mobilePhoneVal () {
-      this.inputEmit()
+      this.$emit('input', this.mobilePhoneVal)
     },
     contractVal () {
-      this.inputEmit()
-    }
-  },
-  methods: {
-    inputEmit () {
-      this.$emit('input', this.fieldValue)
+      this.$emit('input', this.contractVal)
     }
   }
 }
