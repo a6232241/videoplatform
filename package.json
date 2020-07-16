@@ -9,7 +9,7 @@
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src",
-	"format": "prettier --write \"src/**/*.{js,vue,scss}\""
+    "format": "prettier --write \"src/**/*.{js,vue,scss}\""
   },
   "dependencies": {
     "axios": "^0.16.2",

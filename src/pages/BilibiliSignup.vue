@@ -1,8 +1,8 @@
 <template>
   <div id='app'>
     <div class='form'>
-      <field v-on:input="translateText"></field>
-      <!-- <input v-for='(field, key) in registerForm.schema' :key='key' v-model='registerForm.data[key]'> -->
+      <field></field>
+      <!-- <input v-on:input="translateText" v-for='(field, key) in registerForm.schema' :key='key' v-model='registerForm.data[key]'> -->
       <!-- <p v-for='(field, key) in registerForm.data' :key='key'>{{field}}</p> -->
     </div>
   </div>
@@ -37,11 +37,11 @@ export default {
         }
       }
     }
-  },
-  methods: {
-    translateText: function (text) {
-      alert(text)
-    }
   }
+  // methods: {
+  //   translateText: function (text) {
+  //     alert(text)
+  //   }
+  // }
 }
 </script>

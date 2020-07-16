@@ -1,7 +1,7 @@
 <template>
   <main class='field'>
     <p class='title'>註冊</p>
-    <form class='register-form' method='post' action='#'>
+    <form class='register-form'>
       <input v-model='usernameVal' type='text' name='username' placeholder='暱稱(最多10個字)' required />
       <p class="invalid-feedback">{{ userError.msg }}</p>
       <input v-model='pwdVal' type='password' name='pwd' placeholder='密碼(至少6位，小於15位，必須包含大小寫和數字)' required />
@@ -17,17 +17,18 @@
           <a href='#'>用戶使用協議</a>和
           <a href='#'>隱私政策</a>
         </label>
-        <p class="invalid-feedback">{{ contractError.msg }}</p>
+        <!-- <p class="invalid-feedback">{{ contractError.msg }}</p> -->
       </div>
-      <button class="signupBtn">註冊</button>
+      <button class="signupBtn" @click="requestSignup" disabled>註冊</button>
     </form>
   </main>
 </template>
 
 <script>
+import axios from 'axios'
 const isText = /^[a-zA-Z0-9]+$/
 const include = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/
-const isPhone = /^[0-9]+$/
+const isPhone = /^[0-9]{9,}$/
 export default {
   name: 'field',
   data () {
@@ -41,8 +42,7 @@ export default {
       userError: { error: false, msg: '' },
       pwdError: { error: false, msg: '' },
       rePwdError: { error: false, msg: '' },
-      mobilePhoneError: { error: false, msg: '' },
-      contractError: { error: false, msg: '' }
+      mobilePhoneError: { error: false, msg: '' }
     }
   },
   watch: {
@@ -99,23 +99,34 @@ export default {
       }
     },
     contractVal () {
-      if (this.contractVal) {
-        this.contractError.error = true
-        this.contractError.msg = '請輸入0-9的數字'
-      } else {
-        this.contractError.error = false
-        this.contractError.msg = ''
-        this.$emit('input', this.contractVal)
-      }
+      let signupBtn = document.getElementsByClassName('signupBtn')[0]
+      signupBtn.disabled = !this.contractVal
     }
   },
   methods: {
     requestSignup () {
       let form = document.getElementsByClassName('.register-form')[0]
       let formData = new FormData(form)
-      console.log(formData)
-      // axios.post('@/server/signupServer.js', formData)
+      const resSuccess = (res) => {
+        console.log(res.data)
+        alert('註冊成功')
+      }
+      const resError = (err) => {
+        console.error(err)
+      }
+      axios.post('@/server/signupServer.js', formData)
+        .then(resSuccess)
+        .catch(resError)
     }
+    // isSignup () {
+      // let isComplete = true
+      // for (let [key, val] of Object.entries(this.$data)) {
+      //   if (typeof val === 'object') {
+      //     console.clear(key)
+      //     isComplete = (Object.values(val)[0] && isComplete)
+      //   }
+      // }
+    // }
   }
 }
 </script>
@@ -123,6 +134,7 @@ export default {
 <style lang='scss' scoped>
 main {
   padding: 10px 10%;
+  margin: 20px 0;
   box-sizing: border-box;
 
   .title {
@@ -164,6 +176,7 @@ main {
       margin-top: 5px;
       color: #ff2222;
     }
+
   }
 }
 </style>
