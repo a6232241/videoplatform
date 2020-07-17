@@ -25,7 +25,9 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
+import { apiUserSignup } from '@/server/signupServer'
+
 const isText = /^[a-zA-Z0-9]+$/
 const include = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/
 const isPhone = /^[0-9]{9,}$/
@@ -114,7 +116,7 @@ export default {
       const resError = (err) => {
         console.error(err)
       }
-      axios.post('@/server/signupServer.js', formData)
+      apiUserSignup(formData)
         .then(resSuccess)
         .catch(resError)
     }
