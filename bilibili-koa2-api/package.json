@@ -9,6 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "mysql": "^2.18.1",
     "nodemon": "^1.12.1"
   }
 }
