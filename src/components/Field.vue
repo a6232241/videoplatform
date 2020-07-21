@@ -110,7 +110,7 @@ export default {
       let formData = new FormData(form)
 
       const resSuccess = (res) => {
-        console.log(res)
+        // console.log(res)
         alert('註冊成功')
       }
       const resError = (err) => {
