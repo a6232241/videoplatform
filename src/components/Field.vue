@@ -31,7 +31,11 @@ import register from '@/common/js/registerApi'
 // const include = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/
 // const isPhone = /^[0-9]{9,}$/
 export default {
-  name: 'field',
+  name: '',
+  components: {
+    BilibiliHeader,
+    BilibiliFooter,
+  },
   data () {
     return {
       // 由於我們欄位值會變動，所以要把 props 中的 value 賦值到 data 中的屬性

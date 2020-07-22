@@ -46,13 +46,13 @@
           <div class="user">
             <ul v-if="!loggedIn" class='user-icon login'>
               <li @mouseover="showLogin_signup" @mouseleave="hideLogin_signup">
-                <a href='/login' class='userControl'>登入</a>
+                <a href='/login' class='userControl'>登錄</a>
                 <HeaderSlide class='login_signup' ref='login_signup'>
                   <button slot='btn'>
                     <a href='/signup' class='userControl signup' style="display:block">註冊</a>
                   </button>
                   <button slot='btn'>
-                    <a href='/login' class='userControl' style="display:block">登入</a>
+                    <a href='/login' class='userControl' style="display:block">登錄</a>
                   </button>
                 </HeaderSlide>
               </li>
