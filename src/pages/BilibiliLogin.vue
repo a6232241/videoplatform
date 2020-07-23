@@ -27,7 +27,6 @@
 import BilibiliHeader from '@/components/BilibiliHeader'
 import BilibiliFooter from '@/components/BilibiliFooter'
 import register from '@/common/js/registerApi'
-// import axios from 'axios'
 
 // const isText = /^[a-zA-Z0-9]+$/
 // const include = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/
@@ -83,25 +82,17 @@ export default {
       // }
     }
   },
+  created () {
+    this.incsession()
+  },
   methods: {
     async login () {
       let form = document.getElementsByClassName('register-form')[0]
       let formData = new FormData(form)
-      // const userRequest = axios.create({
-      //   baseURL: 'http://localhost:3000',
-      //   headers: { 'content-type': 'multipart/form-data' }
-      // })
-      const resSuccess = (res) => {
-        alert(res.data)
-      }
-      const resError = (err) => {
-        alert(err.data)
-      }
-      register.userLogin(formData)
-      // userRequest
-      //   .post('/login', formData)
-        .then(resSuccess)
-        .catch(resError)
+      await register.userLogin(formData)
+    },
+    async incsession () {
+      await register.userIncsession()
     }
   }
 }

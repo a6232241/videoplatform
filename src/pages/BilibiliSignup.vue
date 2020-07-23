@@ -120,16 +120,7 @@ export default {
     async signup () {
       let form = document.getElementsByClassName('register-form')[0]
       let formData = new FormData(form)
-
-      const resSuccess = (res) => {
-        alert(res.data)
-      }
-      const resError = (err) => {
-        alert(err.data)
-      }
       register.userSignup(formData)
-        .then(resSuccess)
-        .catch(resError)
     }
     // isSignup () {
       // let isComplete = true

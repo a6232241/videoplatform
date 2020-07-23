@@ -34,13 +34,32 @@ router.post('/login', multer.array(), async (ctx) => {
   } else {
     // 去掉 RowDataPacket (以form為例)
     result = JSON.parse(JSON.stringify(result))
-    let resultData = [
-      result[0].guid,
-      result[0].id
-    ]
+    let resultData = {
+      guid: result[0].guid,
+      id: result[0].id
+    }
     sql = 'UPDATE users SET guid = ? WHERE id = ?';
-    query(sql, [...resultData])
+    query(sql, Object.values(resultData))
+    ctx.session.guid = resultData.guid
     ctx.body = `登錄成功`
+  }
+})
+
+router.get('/logout', async (ctx) => {
+  ctx.session.destroy(ctx.session.guid)
+  ctx.body = `登出成功`
+})
+
+router.get('/incsession', async (ctx) => {
+  let sql = 'SELECT guid FROM users'
+  let result = await query(sql)
+  result = JSON.parse(JSON.stringify(result))
+  console.log(ctx.session.guid)
+  console.log(result[0].guid)
+  if(ctx.session.guid !== undefined && ctx.session.guid === result[0].guid) {
+    ctx.body = true
+  } else {
+    ctx.body = false
   }
 })
 
