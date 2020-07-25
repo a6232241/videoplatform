@@ -8,7 +8,7 @@ const logger = require('koa-logger')
 const cors = require('koa2-cors')
 const session = require('koa-session');
 
-app.keys = ['some secret hurr']; // 這行是要生成 cookie 時使用的，也就是下方其中一個選項 signed 所需要
+app.keys = ['secret']; // 這行是要生成 cookie 時使用的，也就是下方其中一個選項 signed 所需要
 const sessionConfig = {
   key: 'koa:sess', /** cookie 金鑰 (string) (預設: koa:sess) */
   /** (number || 'session') maxAge 是以毫秒為單位(1000 = 1 秒) (預設: 1 天) */
@@ -48,7 +48,14 @@ const registerRouter = require('./routes/registerRouter')
 // error handler
 onerror(app)
 
-app.use(cors())
+app.use(cors({
+  origin: [ 'http://localhost:8080'], // 允许这个域名的 跨域请求
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}))
 
 // middlewares
 app.use(bodyparser({

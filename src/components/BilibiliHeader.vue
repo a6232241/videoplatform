@@ -106,7 +106,7 @@
                     </ul>
                   </div>
                   <div class="exit">
-                    <a href="">退出</a>
+                    <a href="" @click="logout">退出</a>
                   </div>
                 </div>
                 <a href="https://github.com/summerscar/bilibli-vue " target="_blank">
@@ -221,15 +221,18 @@
   import HeaderSlide from '@/base/HeaderSlide'
   import BilibiliLogin from '@/base/BilibiliLogin'
   import api from '@/common/js/api'
+  import register from '@/common/js/registerApi'
 
   export default {
     name: '',
+    props: {
+      loggedIn: { type: Boolean, default: false }
+    },
     data () {
       return {
         conditionActive: 1,
         headerData: {},
-        defaultWord: {},
-        loggedIn: false
+        defaultWord: {}
       }
     },
     components: {
@@ -349,6 +352,9 @@
       },
       hideLogin_signup () {
         this.$refs.login_signup.hide()
+      },
+      async logout () {
+        await register.userLogout()
       }
     }
   }

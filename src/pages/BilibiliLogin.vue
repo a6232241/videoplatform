@@ -4,6 +4,7 @@
       <main class='field'>
         <p class='title'>登錄</p>
         <form class='register-form' @submit.prevent>
+        <!-- <form class='register-form' method='POST' action="http://localhost:3000/login"> -->
           <input v-model='usernameVal' type='text' name='username' placeholder='暱稱(最多10個字)' required />
           <p class="invalid-feedback">{{ userError.msg }}</p>
           <input v-model='pwdVal' type='password' name='pwd' placeholder='密碼(至少6位，小於15位，必須包含大小寫和數字)' required />
@@ -82,17 +83,12 @@ export default {
       // }
     }
   },
-  created () {
-    this.incsession()
-  },
   methods: {
     async login () {
       let form = document.getElementsByClassName('register-form')[0]
       let formData = new FormData(form)
+      formData.append('contract', this.contractVal)
       await register.userLogin(formData)
-    },
-    async incsession () {
-      await register.userIncsession()
     }
   }
 }

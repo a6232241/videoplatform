@@ -22,13 +22,12 @@ router.post('/signup', multer.array(), async (ctx) => {
 })
 
 router.post('/login', multer.array(), async (ctx) => {
-  let data = [
-    ctx.request.body.username,
-    ctx.request.body.pwd,
-  ]
-
+  let data = {
+    username: ctx.request.body.username,
+    pwd: ctx.request.body.pwd,
+  }
   let sql = 'SELECT id, MD5(UNIX_TIMESTAMP() + id + RAND(UNIX_TIMESTAMP())) guid FROM users WHERE name = ? AND password = ?'
-  let result = await query(sql, [...data])
+  let result = await query(sql, Object.values(data))
   if(result[0] === undefined) {
     ctx.body = `帳號錯誤，請重新輸入帳號或密碼`
   } else {
@@ -38,15 +37,17 @@ router.post('/login', multer.array(), async (ctx) => {
       guid: result[0].guid,
       id: result[0].id
     }
+    // if(ctx.request.body.contract === 'true') {
+      ctx.session.guid = resultData.guid
+    // }
     sql = 'UPDATE users SET guid = ? WHERE id = ?';
-    query(sql, Object.values(resultData))
-    ctx.session.guid = resultData.guid
+    await query(sql, Object.values(resultData))
     ctx.body = `登錄成功`
   }
 })
 
 router.get('/logout', async (ctx) => {
-  ctx.session.destroy(ctx.session.guid)
+  ctx.session.guid = null
   ctx.body = `登出成功`
 })
 
@@ -54,10 +55,9 @@ router.get('/incsession', async (ctx) => {
   let sql = 'SELECT guid FROM users'
   let result = await query(sql)
   result = JSON.parse(JSON.stringify(result))
-  console.log(ctx.session.guid)
-  console.log(result[0].guid)
-  if(ctx.session.guid !== undefined && ctx.session.guid === result[0].guid) {
-    ctx.body = true
+  let cookieGuid = ctx.session.guid
+  if(cookieGuid !== null && cookieGuid === result[0].guid) {
+    ctx.body = cookieGuid
   } else {
     ctx.body = false
   }

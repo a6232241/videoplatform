@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <bilibili-header></bilibili-header>
+    <bilibili-header :loggedIn="loggedIn"></bilibili-header>
     <div class="main_warp">
       <bilibili-menu v-if="$route.path=='/'"></bilibili-menu>
       <router-view></router-view>
@@ -13,6 +13,7 @@
   import BilibiliHeader from '@/components/BilibiliHeader'
   import BilibiliFooter from '@/components/BilibiliFooter'
   import BilibiliMenu from '@/components/BilibiliMenu'
+  import register from '@/common/js/registerApi'
 
   export default {
     name: 'app',
@@ -29,6 +30,24 @@
       BilibiliHeader,
       BilibiliFooter,
       BilibiliMenu
+    },
+    created () {
+      this.incsession()
+    },
+    methods: {
+      async incsession () {
+        let res = await register.userIncsession()
+        if (res) {
+          this.loggedIn = true
+        } else {
+          this.loggedIn = false
+        }
+      }
+    },
+    data () {
+      return {
+        loggedIn: false
+      }
     }
   }
 </script>
