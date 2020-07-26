@@ -86,7 +86,7 @@
       this.getZoneRank()
       this.getPromote()
       this.getPromoteAd()
-      this.getRecommend()
+      // this.getRecommend()
       this.getLive()
       //  监听调整窗口时的电梯位置
       window.addEventListener('resize', () => {
@@ -121,9 +121,9 @@
       async getPromoteAd () {
         this.promoteAd = await api.getPromoteAd()
       },
-      async getRecommend () {
-        this.recommendData = await api.getRecommend()
-      },
+      // async getRecommend () {
+      //   this.recommendData = await api.getRecommend()
+      // },
       async getLive () {
         this.liveData = await api.getLive()
       },

@@ -28,6 +28,14 @@ const routes = [
       title: 'bilibiliSignup'
     }
   }
+  // {
+  //   path: '/user/videoManage',
+  //   name: 'VideoUpload',
+  //   component: 'VideoUpload',
+  //   meta: {
+  //     title: '頻道管理'
+  //   }
+  // }
 ]
 
 export default new Router({

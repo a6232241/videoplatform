@@ -17,11 +17,11 @@ export default {
     console.log('推广广告数据', res)
     return res
   },
-  async getRecommend () {
-    let {data: {list: res}} = await axios.get(url.recommend)
-    console.log('底部推荐数据', res)
-    return res.slice(0, 5)
-  },
+  // async getRecommend () {
+  //   let {data: {list: res}} = await axios.get(url.recommend)
+  //   console.log('底部推荐数据', res)
+  //   return res.slice(0, 5)
+  // },
   async getLive () {
     let {data: {data: res}} = await axios.get(url.live)
     console.log('直播数据', res)

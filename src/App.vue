@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <bilibili-header :loggedIn="loggedIn"></bilibili-header>
+    <bilibili-header :loggedIn="loggedIn" :username="username"></bilibili-header>
     <div class="main_warp">
       <bilibili-menu v-if="$route.path=='/'"></bilibili-menu>
       <router-view></router-view>
@@ -39,6 +39,7 @@
         let res = await register.userIncsession()
         if (res) {
           this.loggedIn = true
+          this.username = res.username
         } else {
           this.loggedIn = false
         }
@@ -46,7 +47,8 @@
     },
     data () {
       return {
-        loggedIn: false
+        loggedIn: false,
+        username: ''
       }
     }
   }

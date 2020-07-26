@@ -1,15 +1,17 @@
 {
-    "editor.tabSize": 4,
     "editor.formatOnSave": false,
     "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-    "javascript.format.insertSpaceAfterConstructor": true
+    "javascript.format.insertSpaceAfterConstructor": true,
+    "editor.tabSize": 2
 
-    // 沒套用
-    // "prettier.semi": false,
+    // "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // "editor.tabSize": 2,
     // "prettier.singleQuote": true,
     // "prettier.requirePragma": true,
+    // "prettier.jsxSingleQuote": true,
+    // "prettier.semi": false,
+    // 沒套用
     // "vetur.format.defaultFormatterOptions": {
-
     //     "js-beautify-html": {
     //         "wrap_attributes": "force-expand-multiline"
     //     },

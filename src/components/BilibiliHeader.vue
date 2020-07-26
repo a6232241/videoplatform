@@ -63,7 +63,7 @@
             <ul  v-if="loggedIn" >
               <li class="user" @mouseover="avatarBigger" @mouseleave="avatarSmaller">
                 <div class="detail" ref="userDetail">
-                  <div class="username"><a href="https://github.com/summerscar/bilibli-vue " target="_blank">bilibli-vue</a></div>
+                  <div class="username"><a href="https://github.com/summerscar/bilibli-vue " target="_blank">{{username}}</a></div>
                   <div class="up">
                     <div class="left">
                       <a href="https://account.bilibili.com/site/home" title="硬币" target="_blank">
@@ -226,7 +226,8 @@
   export default {
     name: '',
     props: {
-      loggedIn: { type: Boolean, default: false }
+      loggedIn: { type: Boolean, default: false },
+      username: { type: String, default: '訪客' }
     },
     data () {
       return {

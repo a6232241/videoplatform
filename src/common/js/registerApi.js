@@ -1,4 +1,5 @@
 import axios from 'axios'
+import storage from '@/common/js/storageApi'
 
 const userRequest = axios.create({
   withCredentials: true,
@@ -6,9 +7,6 @@ const userRequest = axios.create({
   headers: { 'content-type': 'multipart/form-data' }
 })
 
-const resSuccess = (res) => {
-  return res.data
-}
 const resError = (err) => {
   console.log(err.data)
 }
@@ -16,29 +14,41 @@ const resError = (err) => {
 export default {
   async userSignup (data) {
     await userRequest.post('/signup', data)
-          .then(resSuccess)
-          .catch(resError)
+      .then((res) => {
+        alert(res.data)
+        window.location.pathname = '/'
+      })
+      .catch(resError)
   },
   async userLogin (data) {
     await userRequest.post('/login', data)
-          .then((res) => {
-            alert(res.data)
-            window.location.pathname = '/'
-          })
-          .catch(resError)
+      .then((res) => {
+        let resData = res.data
+        console.log(resData)
+        if (resData.status) {
+          storage.setStorage('guid', resData.guid)
+        }
+        alert(resData.message)
+        window.location.pathname = '/'
+      })
+      .catch(resError)
   },
   async userLogout () {
     await userRequest.get('/logout')
-          .then((res) => {
-            alert(res.data)
-            window.location.pathname = '/'
-          })
-          .catch(resError)
+      .then((res) => {
+        alert(res.data)
+        window.location.pathname = '/'
+      })
+      .catch(resError)
   },
   async userIncsession () {
-    let data = await userRequest.get('/incsession')
-                    .then(resSuccess)
-                    .catch(resError)
-    return data
+    let formData = new FormData()
+    formData.append('guid', storage.getStorage('guid'))
+    let resData = await userRequest.post('/incsession', formData)
+      .then((res) => {
+        return res.data
+      })
+      .catch(resError)
+    return resData
   }
 }
