@@ -36,6 +36,7 @@ export default {
   async userLogout () {
     await userRequest.get('/logout')
       .then((res) => {
+        storage.removeStorage('guid')
         alert(res.data)
         window.location.pathname = '/'
       })

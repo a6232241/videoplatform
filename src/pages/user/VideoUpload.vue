@@ -7,9 +7,11 @@
 </template>
 
 <script>
-export default {
-  
-}
+// export default {
+//   data() {
+
+//   }
+// }
 </script>
 
 <style lang="scss" scoped>

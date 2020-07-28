@@ -354,7 +354,8 @@
       hideLogin_signup () {
         this.$refs.login_signup.hide()
       },
-      async logout () {
+      async logout (e) {
+        e.preventDefault()
         await register.userLogout()
       }
     }

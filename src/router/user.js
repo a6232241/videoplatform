@@ -3,29 +3,25 @@ import Router from 'vue-router'
 import BilibiliIndex from '@/pages/BilibiliIndex'
 import BilibiliLogin from '@/pages/BilibiliLogin'
 import BilibiliSignup from '@/pages/BilibiliSignup'
+import VideoUpload from '@/pages/user/VideoUpload'
 
 Vue.use(Router)
 
 const routes = [
   {
-    path: '*',
+    path: '/user',
     name: 'BilibiliIndex',
-    component: BilibiliIndex
-  },
-  {
-    path: '/login',
-    name: 'BilibiliLogin',
-    component: BilibiliLogin,
+    component: BilibiliIndex,
     meta: {
-      title: 'bilibiliLogin'
+      title: '你的空間'
     }
   },
   {
-    path: '/signup',
-    name: 'BilibiliSignup',
-    component: BilibiliSignup,
+    path: '/user/videoUpload',
+    name: 'VideoUpload',
+    component: VideoUpload,
     meta: {
-      title: 'bilibiliSignup'
+      title: '頻道管理'
     }
   }
 ]

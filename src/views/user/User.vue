@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
+  <div id="user">
     <bilibili-header :loggedIn="loggedIn" :username="username"></bilibili-header>
     <div class="main_warp">
       <bilibili-menu v-if="$route.path=='/'"></bilibili-menu>
       <router-view></router-view>
     </div>
-    <bilibili-footer></bilibili-footer>
+    <!-- <bilibili-footer></bilibili-footer> -->
   </div>
 </template>
 
@@ -16,7 +16,7 @@
   import register from '@/common/js/registerApi'
 
   export default {
-    name: 'app',
+    name: 'user',
     // 動態分配路由title
     watch: {
       $route: {
