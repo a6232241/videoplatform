@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <bilibili-header :loggedIn="loggedIn" :username="username"></bilibili-header>
-    <a href="user.html">123123</a>
     <div class="main_warp">
       <bilibili-menu v-if="$route.path=='/'"></bilibili-menu>
       <router-view></router-view>

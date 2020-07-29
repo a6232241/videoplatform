@@ -24,7 +24,6 @@ export default {
     await userRequest.post('/login', data)
       .then((res) => {
         let resData = res.data
-        console.log(resData)
         if (resData.status) {
           storage.setStorage('guid', resData.guid)
         }

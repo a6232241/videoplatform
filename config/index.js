@@ -4,10 +4,16 @@ var path = require('path')
 module.exports = {
   build: {
     env: require('./prod.env'),
+
+    // template
     index: path.resolve(__dirname, '../dist/index.html'),
+    // 打包後，根目錄
     assetsRoot: path.resolve(__dirname, '../dist'),
+    // 打包後，靜態資源目錄
     assetsSubDirectory: 'static',
+    // 打包後，引用靜態資源的相對路徑
     assetsPublicPath: '/',
+    
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.

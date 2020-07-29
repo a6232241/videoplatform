@@ -30,20 +30,14 @@
 </template>
 
 <script>
-import BilibiliHeader from '@/components/BilibiliHeader'
-import BilibiliFooter from '@/components/BilibiliFooter'
 import register from '@/common/js/registerApi'
 
-// const isText = /^[a-zA-Z0-9]+$/
-// const include = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/
-// const isPhone = /^[0-9]{9,}$/
+const isText = /^[a-zA-Z0-9]+$/
+const include = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/
+const isPhone = /^[0-9]{9,}$/
 
 export default {
   name: 'BilibiliSignup',
-  components: {
-    BilibiliHeader,
-    BilibiliFooter
-  },
   data () {
     return {
       // 由於我們欄位值會變動，所以要把 props 中的 value 賦值到 data 中的屬性
@@ -60,67 +54,72 @@ export default {
   },
   watch: {
     usernameVal () {
-      // if (!isText.test(this.usernameVal)) {
-      //   this.userError.error = true
-      //   this.userError.msg = '請勿包含特殊字元'
-      // } else if (this.usernameVal.length > 10) {
-      //   this.userError.error = true
-      //   this.userError.msg = '請勿超過10個字'
-      // } else {
-      this.userError.error = false
-      this.userError.msg = ''
-      this.$emit('input', this.usernameVal)
-      // }
+      if (!isText.test(this.usernameVal)) {
+        this.userError.error = true
+        this.userError.msg = '請勿包含特殊字元'
+      } else if (this.usernameVal.length > 10) {
+        this.userError.error = true
+        this.userError.msg = '請勿超過10個字'
+      } else {
+        this.userError.error = false
+        this.userError.msg = ''
+        this.$emit('input', this.usernameVal)
+      }
     },
     pwdVal () {
-      // if (!isText.test(this.pwdVal)) {
-      //   this.pwdError.error = true
-      //   this.pwdError.msg = '請勿包含特殊字元'
-      // } else if (this.pwdVal.length < 6) {
-      //   this.pwdError.error = true
-      //   this.pwdError.msg = '請勿少於6個字'
-      // } else if (this.pwdVal.length > 15) {
-      //   this.pwdError.error = true
-      //   this.pwdError.msg = '請勿超過15個字'
-      // } else if (!include.test(this.pwdVal)) {
-      //   this.pwdError.error = true
-      //   this.pwdError.msg = '至少包括一個大小寫字母或數字'
-      // } else {
-      this.pwdError.error = false
-      this.pwdError.msg = ''
-      this.$emit('input', this.pwdVal)
-      // }
+      if (!isText.test(this.pwdVal)) {
+        this.pwdError.error = true
+        this.pwdError.msg = '請勿包含特殊字元'
+      } else if (this.pwdVal.length < 6) {
+        this.pwdError.error = true
+        this.pwdError.msg = '請勿少於6個字'
+      } else if (this.pwdVal.length > 15) {
+        this.pwdError.error = true
+        this.pwdError.msg = '請勿超過15個字'
+      } else if (!include.test(this.pwdVal)) {
+        this.pwdError.error = true
+        this.pwdError.msg = '至少包括一個大小寫字母或數字'
+      } else {
+        this.pwdError.error = false
+        this.pwdError.msg = ''
+        this.$emit('input', this.pwdVal)
+      }
     },
     rePwdVal () {
-      // if (this.pwdVal !== this.rePwdVal) {
-      //   this.rePwdError.error = true
-      //   this.rePwdError.msg = '密碼輸入不相等'
-      // } else {
-      this.rePwdError.error = false
-      this.rePwdError.msg = ''
-      this.$emit('input', this.rePwdVal)
-      // }
+      if (this.pwdVal !== this.rePwdVal) {
+        this.rePwdError.error = true
+        this.rePwdError.msg = '密碼輸入不相等'
+      } else {
+        this.rePwdError.error = false
+        this.rePwdError.msg = ''
+        this.$emit('input', this.rePwdVal)
+      }
     },
     mobilePhoneVal () {
-      // if (!isPhone.test(this.mobilePhoneVal)) {
-      //   this.mobilePhoneError.error = true
-      //   this.mobilePhoneError.msg = '請輸入0-9的數字'
-      // } else {
-      this.mobilePhoneError.error = false
-      this.mobilePhoneError.msg = ''
-      this.$emit('input', this.mobilePhoneVal)
-      // }
+      if (!isPhone.test(this.mobilePhoneVal)) {
+        this.mobilePhoneError.error = true
+        this.mobilePhoneError.msg = '請輸入0-9的數字'
+      } else {
+        this.mobilePhoneError.error = false
+        this.mobilePhoneError.msg = ''
+        this.$emit('input', this.mobilePhoneVal)
+      }
     },
     contractVal () {
-      let registerBtn = this.contractVal
+      let registerBtn = document.querySelector('.registerBtn')
       registerBtn.disabled = !this.contractVal
     }
   },
   methods: {
     async signup () {
-      let form = document.getElementsByClassName('register-form')[0]
-      let formData = new FormData(form)
-      register.userSignup(formData)
+      if (this.getRequired()) {
+        let form = document.getElementsByClassName('register-form')[0]
+        let formData = new FormData(form)
+        register.userSignup(formData)
+      }
+    },
+    getRequired () {
+      return this.userError.error && this.pwdError.error && this.rePwdError.error && this.mobilePhoneError.error
     }
     // isSignup () {
       // let isComplete = true
@@ -136,49 +135,5 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-main {
-  padding: 10px 10%;
-  margin: 20px 0;
-  box-sizing: border-box;
-
-  .title {
-    font-size: 38px;
-    text-align: center;
-  }
-  form {
-    display: flex;
-    flex-flow: column wrap;
-    padding: 0 20%;
-
-    input {
-      padding: 10px;
-      margin-top: 25px;
-    }
-    .contractContainer {
-
-      #contract {
-        display: inline-block;
-      }
-      .agreement {
-        display: inline-block;
-
-        a {
-          text-decoration: underline;
-        }
-      }
-    }
-    .registerBtn {
-      padding: 10px;
-      margin-top: 25px;
-      cursor: pointer;
-    }
-    .invalid-feedback {
-      font-size: 13px;
-      padding: 0 12px;
-      margin-top: 5px;
-      color: #ff2222;
-    }
-
-  }
-}
+  @import "../common/style/field";
 </style>

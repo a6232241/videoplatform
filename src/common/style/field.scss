@@ -1,0 +1,47 @@
+main {
+  padding: 10px 10%;
+  margin: 20px 0;
+  box-sizing: border-box;
+
+  .title {
+    font-size: 38px;
+    text-align: center;
+  }
+  form {
+    display: flex;
+    flex-flow: column wrap;
+    padding: 0 20%;
+
+    input {
+      padding: 10px;
+      margin-top: 25px;
+    }
+    .contractContainer {
+      padding: 10px 10px 10px 0;
+
+      #contract {
+        display: inline-block;
+        margin-top: 10px;
+      }
+      .agreement {
+        display: inline-block;
+
+        a {
+          text-decoration: underline;
+        }
+      }
+    }
+    button {
+      padding: 10px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+    .invalid-feedback {
+      font-size: 13px;
+      padding: 0 12px;
+      margin-top: 5px;
+      color: #ff2222;
+    }
+
+  }
+}
