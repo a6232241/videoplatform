@@ -195,7 +195,7 @@
                       <a style="background:url(//static.hdslb.com/images/base/icons.png) no-repeat -507px -970px;">音频投稿</a>
                     </li>
                     <li>
-                      <a style="background:url(//static.hdslb.com/images/base/icons.png) no-repeat -442px -906px;">视频投稿</a>
+                      <a href="/videoUpload" style="background:url(//static.hdslb.com/images/base/icons.png) no-repeat -442px -906px;">视频投稿</a>
                     </li>
                     <li>
                       <a style="background:url(//static.hdslb.com/images/base/icons.png) no-repeat -442px -970px;">投稿管理</a>
