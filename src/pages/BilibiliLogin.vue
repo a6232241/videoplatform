@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import register from '@/common/js/registerApi'
+import axiosApi from '@/common/js/axiosApi'
 
 const isText = /^[a-zA-Z0-9]+$/
 const include = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/
@@ -78,10 +78,10 @@ export default {
   methods: {
     async login () {
       if (this.getRequired()) {
-        let form = document.getElementsByClassName('register-form')[0]
+        let form = document.getElementsByClassName('axiosApi-form')[0]
         let formData = new FormData(form)
         formData.append('contract', this.contractVal)
-        await register.userLogin(formData)
+        await axiosApi.userLogin(formData)
       }
     },
     getRequired () {

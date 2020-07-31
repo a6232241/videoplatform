@@ -13,7 +13,7 @@
   import BilibiliHeader from '@/components/BilibiliHeader'
   import BilibiliFooter from '@/components/BilibiliFooter'
   import BilibiliMenu from '@/components/BilibiliMenu'
-  import register from '@/common/js/registerApi'
+  import axiosApi from '@/common/js/axiosApi'
 
   export default {
     name: 'app',
@@ -36,7 +36,7 @@
     },
     methods: {
       async incsession () {
-        let res = await register.userIncsession()
+        let res = await axiosApi.userIncsession()
         if (res) {
           this.loggedIn = true
           this.username = res.username

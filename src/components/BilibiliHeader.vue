@@ -221,7 +221,7 @@
   import HeaderSlide from '@/base/HeaderSlide'
   import BilibiliLogin from '@/base/BilibiliLogin'
   import api from '@/common/js/api'
-  import register from '@/common/js/registerApi'
+  import axiosApi from '@/common/js/axiosApi'
 
   export default {
     name: '',
@@ -356,7 +356,7 @@
       },
       async logout (e) {
         e.preventDefault()
-        await register.userLogout()
+        await axiosApi.userLogout()
       }
     }
   }

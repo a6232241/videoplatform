@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import register from '@/common/js/registerApi'
+import axiosApi from '@/common/js/axiosApi'
 
 const isText = /^[a-zA-Z0-9]+$/
 const include = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/
@@ -115,7 +115,7 @@ export default {
       if (this.getRequired()) {
         let form = document.getElementsByClassName('register-form')[0]
         let formData = new FormData(form)
-        register.userSignup(formData)
+        axiosApi.userSignup(formData)
       }
     },
     getRequired () {

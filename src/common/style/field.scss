@@ -17,7 +17,6 @@ main {
       margin-top: 25px;
     }
     .contractContainer {
-      padding: 10px 10px 10px 0;
 
       #contract {
         display: inline-block;
@@ -44,4 +43,15 @@ main {
     }
 
   }
+}
+
+form > * {
+  // padding: 10px 10px 10px 0;
+  margin-top: 15px;
+}
+
+.errorMsg {
+  font-size: 13px;
+  margin-top: 5px;
+  color: #ff2222;
 }
