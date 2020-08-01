@@ -78,7 +78,7 @@ export default {
   methods: {
     async login () {
       if (this.getRequired()) {
-        let form = document.getElementsByClassName('axiosApi-form')[0]
+        let form = document.getElementsByClassName('register-form')[0]
         let formData = new FormData(form)
         formData.append('contract', this.contractVal)
         await axiosApi.userLogin(formData)

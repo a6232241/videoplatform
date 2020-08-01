@@ -3,12 +3,12 @@
     <div class='form'>
       <main class='field'>
         <p class='title'>影片上傳</p>
-        <form @submit.prevent>
-          <input type="file" id="fileElem" ref="fileElem" accept="video/*" @change="uploadFiles" />
+        <form class="uploadVideo-form" @submit.prevent>
+          <input type="file" name="video" id="fileElem" ref="fileElem" accept="video/*" @change="uploadFiles" />
           <canvas id="filePreview" @dragover.prevent @drop="uploadFiles"></canvas>
-          <a href="#" id="fileSelect" @click="uploadTrigger">選取檔案</a>
+          <button id="fileSelect" @click="uploadTrigger">選取檔案</button>
           <div id="fileErr" class="errorMsg" ref="fileErr"></div>
-          <button>上傳</button>
+          <button @click="uploadServer">上傳</button>
         </form>
       </main>
       <!-- <input v-on:input="translateText" v-for='(field, key) in registerForm.schema' :key='key' v-model='registerForm.data[key]'> -->
@@ -20,15 +20,15 @@
 
 <script>
 import fileApi from '@/common/js/fileApi'
+import axiosApi from '@/common/js/axiosApi'
 
 export default {
   name: 'VideoUpload',
-  // data () {
-  //   return {
-  //     fileElem: this.$refs.fileElem,
-  //     fileList: this.$refs.fileList
-  //   }
-  // },
+  data () {
+    return {
+      files: ''
+    }
+  },
   // created () {
   // },
   methods: {
@@ -48,17 +48,25 @@ export default {
           for (var i = 0; i < files.length; i++) {
             let reader = await fileApi.handleFile(files[i])
             reader.onload = (e) => {
-              let result = e.target.result
-              let video = document.createElement('video')
-              video.style.width = '100%'
-              video.src = result
+              // let result = e.target.result
+              // let video = document.createElement('video')
+              // video.style.width = '100%'
+              // video.src = result
             }
           }
+          this.files = files
           // }
         })
         .catch(() => {
           fileErr.innerHTML = '<p>未符合請求格式</p>'
         })
+    },
+    async uploadServer () {
+      let formData = new FormData()
+      for (var i = 0; i < this.files.length; i++) {
+        formData.append('videos', this.files[i], this.files[i].name)
+      }
+      await axiosApi.uploadVideo(formData)
     }
   }
 }
@@ -66,10 +74,17 @@ export default {
 
 <style lang="scss" scoped>
   @import "../../common/style/field";
-  #fileElem {
-   display: none; 
-  }
-  #filePreview {
-    border: 1px solid #000;
+  .uploadVideo-form {
+
+    #fileElem {
+     display: none; 
+    }
+    #filePreview {
+      border: 1px solid #000;
+    }
+    #fileSelect {
+      display: inline;
+      
+    }
   }
 </style>

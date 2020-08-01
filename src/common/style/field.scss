@@ -34,6 +34,10 @@ main {
       padding: 10px;
       margin-top: 15px;
       cursor: pointer;
+
+      &:disabled {
+        cursor: not-allowed;
+      }
     }
     .invalid-feedback {
       font-size: 13px;

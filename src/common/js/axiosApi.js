@@ -50,5 +50,12 @@ export default {
       })
       .catch(resError)
     return resData
+  },
+  async uploadVideo (files) {
+    await userRequest.post('/uploadVideo', files)
+    .then((res) => {
+      console.log(res.data)
+    })
+    .catch(resError)
   }
 }
