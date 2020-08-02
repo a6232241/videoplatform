@@ -24,13 +24,14 @@ import axiosApi from '@/common/js/axiosApi'
 
 export default {
   name: 'VideoUpload',
+  props: {
+    username: { type: String, default: '訪客' }
+  },
   data () {
     return {
       files: ''
     }
   },
-  // created () {
-  // },
   methods: {
     uploadTrigger (e) {
       let fileElem = this.$refs.fileElem
@@ -48,10 +49,10 @@ export default {
           for (var i = 0; i < files.length; i++) {
             let reader = await fileApi.handleFile(files[i])
             reader.onload = (e) => {
-              // let result = e.target.result
-              // let video = document.createElement('video')
-              // video.style.width = '100%'
-              // video.src = result
+              let result = e.target.result
+              let video = document.createElement('video')
+              video.style.width = '100%'
+              video.src = result
             }
           }
           this.files = files
@@ -63,6 +64,7 @@ export default {
     },
     async uploadServer () {
       let formData = new FormData()
+      formData.append('username', this.username)
       for (var i = 0; i < this.files.length; i++) {
         formData.append('videos', this.files[i], this.files[i].name)
       }

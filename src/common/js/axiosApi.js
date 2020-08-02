@@ -1,5 +1,6 @@
 import axios from 'axios'
 import storage from '@/common/js/storageApi'
+// import fileApi from '@/common/js/fileApi'
 
 const userRequest = axios.create({
   withCredentials: true,
@@ -53,9 +54,9 @@ export default {
   },
   async uploadVideo (files) {
     await userRequest.post('/uploadVideo', files)
-    .then((res) => {
-      console.log(res.data)
-    })
-    .catch(resError)
+      .then(async (res) => {
+        console.log(res.data)
+      })
+      .catch(resError)
   }
 }

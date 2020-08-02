@@ -3,7 +3,7 @@
     <bilibili-header :loggedIn="loggedIn" :username="username"></bilibili-header>
     <div class="main_warp">
       <bilibili-menu v-if="$route.path=='/'"></bilibili-menu>
-      <router-view></router-view>
+      <router-view :username="username"></router-view>
     </div>
     <bilibili-footer></bilibili-footer>
   </div>
