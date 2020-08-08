@@ -1,8 +1,23 @@
 const router = require("koa-router")()
-const { transloadit } = require("../transloaditConfig")
+const fs = require("fs")
 const multer = require("@koa/multer")
 const storage = multer.diskStorage({
-  // destination: "public/uploads/" + new Date().getFullYear() + (new Date().getMonth() + 1) + new Date().getDate(),
+  destination: (ctx, file, cb) => {
+    const username = ctx.body.username
+    const dir = `./public/uploads/${username}`
+    fs.exists(dir, exist => {
+      if (username) {
+        if (!exist) {
+          // recursive 將創建路徑中每個不存在的目錄
+          fs.mkdir(dir, {recursive: true}, error => cb(error, dir))
+        } else {
+          cb(null, dir)
+        }
+      } else {
+        cb(new Error('請登入使用者'))
+      }
+    })
+  },
   filename: (ctx, file, cb) => {
     // const filenameArr = file.originalname.split(".")
     cb(null, file.originalname)
@@ -21,85 +36,20 @@ const upload = multer({
     fileFilter
 })
 
-const template = {
-  "steps": {
-    ":original": {
-      "robot": "/upload/handle"
-    },
-    "webm_encoded": {
-      "use": ":original",
-      "robot": "/video/encode",
-      "result": true,
-      "ffmpeg_stack": "v3.3.3",
-      "preset": "webm"
-    },
-    "exported": {
-      "use": [
-        "webm_encoded",
-        ":original"
-      ],
-      "robot": "/s3/store",
-      "credentials": "YOUR_AWS_CREDENTIALS"
-    }
-  }
-}
-const templateStr = JSON.stringify(template)
-
 router.post("/uploadVideo", upload.array('videos', 5), async (ctx) => {
-  let res = {
-    videos: ctx.request.files,
-    username: ctx.request.body.username
-  }
-  console.log(res)
-
-  const params = {
-    name: res.username,
-    template: templateStr
-  }
-  const options = {
-    waitForCompletion: true,
-    params : {
-      template_id: params.name,
-    },
-  }
-  // 創建template
-  await transloadit.createTemplate(params)
-  // 新增檔案
-  for(let i = 0; i < res.videos.length; i++) {
-    let video = res.videos[i]
-    await transloadit.addFile(video.filename, video.destination)
-  }
-  // 創建assembly
-  await transloadit.createAssembly(options, doneCb, progressCb)
+  // let res = {
+  //   videos: ctx.request.files,
+  //   username: ctx.request.body.username
+  // }
   ctx.body = `上傳成功`
 })
 
+router.get("/downloadVideo", async (ctx) => {
+  ctx.body = `下載成功`
+})
+
 router.get("/removeVideo", async (ctx) => {
-  const params = {
-    name: 'test',
-    template: templateStr
-  }
-  const options = {
-    waitForCompletion: true,
-    params : {
-      template_id: params.name,
-    },
-  }
-  // 創建template
-  await transloadit.createTemplate(params)
-  // 新增檔案
-  // for(let i = 0; i < res.videos.length; i++) {
-  //   let video = res.videos[i]
-  let dir = 'C:\\Users\\寬程\\AppData\\Local\\Temp'
-  await transloadit.addFile('ImageSlider - Google Chrome 2020-02-08 22-12-01.mp4', './public/video/')
-  // }
-  // 創建assembly
-  await transloadit.createAssembly(options, (err, result) => {
-    if (err) {
-      throw err
-    }
-  })
-  ctx.body = `上傳成功`
+  ctx.body = `移除成功`
 })
 
 module.exports = router

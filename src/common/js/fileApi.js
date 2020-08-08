@@ -22,7 +22,6 @@ export default {
     })
   },
   async handleFile (file) {
-    console.log(file)
     const reader = new FileReader()
     reader.addEventListener('progress', async (event) => {
       if (event.loaded && event.total) {
