@@ -13,6 +13,7 @@ const resError = (err) => {
 }
 
 export default {
+  // 使用者API
   async userSignup (data) {
     await userRequest.post('/signup', data)
       .then((res) => {
@@ -52,6 +53,7 @@ export default {
       .catch(resError)
     return resData
   },
+  // 頻道API
   async uploadVideo (files) {
     await userRequest.post('/uploadVideo', files)
       .then(async (res) => {

@@ -1,3 +1,4 @@
+import { Video } from 'video-metadata-thumbnails'
 
 export default {
   // 檔案上傳觸發
@@ -31,5 +32,10 @@ export default {
     })
     await reader.readAsDataURL(file)
     return reader
+  },
+  async createVideoPreview (blob, options = { quality: 0.6, interval: 6 }) {
+    const video = new Video(blob)
+    let thumbnails = await video.getThumbnails(options)
+    return thumbnails
   }
 }

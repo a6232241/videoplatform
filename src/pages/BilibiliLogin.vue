@@ -3,7 +3,7 @@
     <div class='form'>
       <main class='field'>
         <p class='title'>登錄</p>
-        <form class='register-form' @submit.prevent>
+        <form class='register-form' @submit.prevent="login">
           <input v-model='usernameVal' type='text' name='username' placeholder='暱稱(最多10個字)' required />
           <p class="invalid-feedback">{{ userError.msg }}</p>
           <input v-model='pwdVal' type='password' name='pwd' placeholder='密碼(至少6位，小於15位，必須包含大小寫和數字)' required />
@@ -14,7 +14,7 @@
               記住這個帳號
             </label>
           </div>
-          <button class="registerBtn" type="submit" @click="login">登錄</button>
+          <button class="registerBtn" type="submit">登錄</button>
         </form>
       </main>
       <!-- <input v-on:input="translateText" v-for='(field, key) in registerForm.schema' :key='key' v-model='registerForm.data[key]'> -->
@@ -77,15 +77,10 @@ export default {
   },
   methods: {
     async login () {
-      if (this.getRequired()) {
-        let form = document.getElementsByClassName('register-form')[0]
-        let formData = new FormData(form)
-        formData.append('contract', this.contractVal)
-        await axiosApi.userLogin(formData)
-      }
-    },
-    getRequired () {
-      return this.userError.error && this.pwdError.error
+      let form = document.getElementsByClassName('register-form')[0]
+      let formData = new FormData(form)
+      formData.append('contract', this.contractVal)
+      await axiosApi.userLogin(formData)
     }
   }
 }

@@ -3,7 +3,7 @@
     <div class='form'>
       <main class='field'>
         <p class='title'>註冊</p>
-        <form class='register-form' @submit.prevent>
+        <form class='register-form' @submit.prevent="signup">
           <input v-model='usernameVal' type='text' name='username' placeholder='暱稱(最多10個字)' required />
           <p class="invalid-feedback">{{ userError.msg }}</p>
           <input v-model='pwdVal' type='password' name='pwd' placeholder='密碼(至少6位，小於15位，必須包含大小寫和數字)' required />
@@ -20,7 +20,7 @@
               <a href='#'>隱私政策</a>
             </label>
           </div>
-          <button class="registerBtn" @click="signup" disabled>註冊</button>
+          <button class="registerBtn" disabled>註冊</button>
         </form>
       </main>
       <!-- <input v-on:input="translateText" v-for='(field, key) in registerForm.schema' :key='key' v-model='registerForm.data[key]'> -->
@@ -112,15 +112,13 @@ export default {
   },
   methods: {
     async signup () {
-      if (this.getRequired()) {
-        let form = document.getElementsByClassName('register-form')[0]
-        let formData = new FormData(form)
-        axiosApi.userSignup(formData)
-      }
-    },
-    getRequired () {
-      return this.userError.error && this.pwdError.error && this.rePwdError.error && this.mobilePhoneError.error
+      let form = document.getElementsByClassName('register-form')[0]
+      let formData = new FormData(form)
+      axiosApi.userSignup(formData)
     }
+    // getRequired () {
+    //   return this.userError.error && this.pwdError.error && this.rePwdError.error && this.mobilePhoneError.error
+    // }
     // isSignup () {
       // let isComplete = true
       // for (let [key, val] of Object.entries(this.$data)) {

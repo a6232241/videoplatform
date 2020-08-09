@@ -4,6 +4,7 @@ import BilibiliIndex from '@/pages/BilibiliIndex'
 import BilibiliLogin from '@/pages/BilibiliLogin'
 import BilibiliSignup from '@/pages/BilibiliSignup'
 import VideoUpload from '@/pages/user/VideoUpload'
+import VideoPage from '@/pages/VideoPage'
 
 Vue.use(Router)
 
@@ -18,7 +19,7 @@ const routes = [
     name: 'BilibiliLogin',
     component: BilibiliLogin,
     meta: {
-      title: 'bilibiliLogin'
+      title: '登錄'
     }
   },
   {
@@ -26,7 +27,7 @@ const routes = [
     name: 'BilibiliSignup',
     component: BilibiliSignup,
     meta: {
-      title: 'bilibiliSignup'
+      title: '註冊'
     }
   },
   // {
@@ -61,14 +62,29 @@ const routes = [
     path: '/videoUpload',
     name: 'videoUpload',
     component: VideoUpload
-  }
+  },
   //       ]
   //     }
   //   ]
   // }
+  {
+    path: '/video/:videoId',
+    name: 'videoPage',
+    component: VideoPage
+  }
 ]
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.length === 0) { // 如果未匹配到路由
+    next('/404')
+  } else {
+    next() // 如果匹配到正确跳转
+  }
+})
+
+export default router

@@ -3,10 +3,14 @@ const fs = require("fs")
 const multer = require("@koa/multer")
 const storage = multer.diskStorage({
   destination: (ctx, file, cb) => {
-    const username = ctx.body.username
-    const dir = `./public/uploads/${username}`
+    const res = {
+      username: ctx.body.username,
+      authority: ctx.body.authority
+    }
+    const date = new Date()
+    const dir = `./public/uploads/${res.authority}/${res.username}/${date.getFullYear()}${date.getMonth()}${date.getDate()}`
     fs.exists(dir, exist => {
-      if (username) {
+      if (res.username) {
         if (!exist) {
           // recursive 將創建路徑中每個不存在的目錄
           fs.mkdir(dir, {recursive: true}, error => cb(error, dir))
@@ -37,10 +41,11 @@ const upload = multer({
 })
 
 router.post("/uploadVideo", upload.array('videos', 5), async (ctx) => {
-  // let res = {
-  //   videos: ctx.request.files,
-  //   username: ctx.request.body.username
-  // }
+  let res = {
+    videos: ctx.request.files,
+    username: ctx.request.body.username
+  }
+  console.log(res)
   ctx.body = `上傳成功`
 })
 
