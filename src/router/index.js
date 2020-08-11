@@ -61,7 +61,10 @@ const routes = [
   {
     path: '/videoUpload',
     name: 'videoUpload',
-    component: VideoUpload
+    component: VideoUpload,
+    meta: {
+      title: '影片上傳'
+    }
   },
   //       ]
   //     }

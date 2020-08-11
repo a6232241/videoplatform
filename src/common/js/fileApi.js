@@ -33,7 +33,7 @@ export default {
     await reader.readAsDataURL(file)
     return reader
   },
-  async createVideoPreview (blob, options = { quality: 0.6, interval: 6 }) {
+  async createVideoPreview (blob, options = { quality: 1, interval: 6 }) {
     const video = new Video(blob)
     let thumbnails = await video.getThumbnails(options)
     return thumbnails

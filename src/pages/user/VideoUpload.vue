@@ -54,28 +54,27 @@ export default {
           // let preview = document.getElementById('filePreview')
           for (var i = 0; i < files.length; i++) {
             let reader = await fileApi.handleFile(files[i])
-            reader.onload = (e) => {
+            reader.onload = async (e) => {
               let result = e.target.result
-              let video = document.createElement('video')
-              video.style.width = '100%'
-              video.src = result
-              video.controls = true
-              let options = {
-                quality: 0.6
-              }
-              let previewImg = fileApi.createVideoPreview(video.src, options)
+              let previewImg = fileApi.createVideoPreview(result)
               previewImg
-              .then(async (val) => {
-                let img = document.createElement('img')
-                img.src = await URL.createObjectURL(val[0].blob)
-                let form = document.getElementsByClassName('uploadVideo-form')[0]
-                await form.appendChild(img)
-                return img
-              })
-              .then(val => {
-                let canvas = this.$refs.filePreview
-                let context = canvas.getContext('2d')
-                context.drawImage(val, 0, 0, canvas.width, canvas.height)
+              .then((val) => {
+                return new Promise((resolve, reject) => {
+                  let img = new Image()
+                  img.src = URL.createObjectURL(val[0].blob)
+                  resolve(img)
+                })
+                .then((img) => {
+                  let canvas = this.$refs.filePreview
+                  let context = canvas.getContext('2d')
+                  setTimeout(() => {
+                    // 以原尺寸取得圖片大小才能避免模糊
+                    canvas.width = img.width
+                    canvas.height = img.height
+                    context.drawImage(img, 0, 0, canvas.width, canvas.height)
+                    canvas.style.width = '100%'
+                  }, 500)
+                })
               })
             }
           }

@@ -1,6 +1,6 @@
 <template>
   <div class="rank">
-    <div class="itemWarp" v-for="item in rankData" v-if="rankData.length">
+    <div class="itemWarp" v-for="item in rankData" v-if="rankData.length" :key="item">
       <rank-item :item="item"></rank-item>
     </div>
     <div class="arrow-left" @click="dataLeft">{{rankArr[Math.abs((rankIndex - 1) % 3)]}}</div>
