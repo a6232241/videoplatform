@@ -29,10 +29,10 @@ const storage = multer.diskStorage({
 })
 const fileFilter = (ctx, file, cb) => {
     let mimetype = file.mimetype.split('/')
-    if (mimetype[0] === 'video') {
+    if (mimetype[0] === 'video' || mimetype[0] === 'image') {
         cb(null, true)
     } else {
-        cb(new Error('請上傳影音檔'))
+        cb(new Error(`請上傳影音檔`))
     }
 }
 const upload = multer({
@@ -40,9 +40,9 @@ const upload = multer({
     fileFilter
 })
 
-router.post("/uploadVideo", upload.array('videos', 5), async (ctx) => {
+router.post("/uploadVideo", upload.fields([{ name: 'videos', maxCount: 5 }, { name: 'thumbnail', maxCount: 1 }]), async (ctx) => {
   let res = {
-    videos: ctx.request.files,
+    files: ctx.request.files,
     username: ctx.request.body.username
   }
   console.log(res)

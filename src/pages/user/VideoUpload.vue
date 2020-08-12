@@ -36,9 +36,13 @@ export default {
   data () {
     return {
       files: '',
+      thumbnail: '',
       uploadError: { error: true, msg: '' },
       authorityVal: 'public'
     }
+  },
+  created () {
+    console.log(Date.now())
   },
   methods: {
     uploadTrigger (e) {
@@ -62,6 +66,8 @@ export default {
                 return new Promise((resolve, reject) => {
                   let img = new Image()
                   img.src = URL.createObjectURL(val[0].blob)
+                  this.thumbnail = new File([val[0].blob], 'thumbnail', { type: val[0].blob.type, lastModified: Date.now() })
+                  console.log(this.thumbnail)
                   resolve(img)
                 })
                 .then((img) => {
@@ -79,6 +85,7 @@ export default {
             }
           }
           this.files = files
+          console.log(files)
           this.uploadError.error = false
           this.uploadError.msg = ''
           // }
@@ -93,6 +100,7 @@ export default {
         let formData = new FormData()
         formData.append('username', this.username)
         formData.append('authority', this.authorityVal)
+        formData.append('thumbnail', this.thumbnail)
         for (var i = 0; i < this.files.length; i++) {
           formData.append('videos', this.files[i], this.files[i].name)
         }
