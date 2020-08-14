@@ -41,9 +41,6 @@ export default {
       authorityVal: 'public'
     }
   },
-  created () {
-    console.log(Date.now())
-  },
   methods: {
     uploadTrigger (e) {
       let fileElem = this.$refs.fileElem
@@ -67,7 +64,6 @@ export default {
                   let img = new Image()
                   img.src = URL.createObjectURL(val[0].blob)
                   this.thumbnail = new File([val[0].blob], 'thumbnail', { type: val[0].blob.type, lastModified: Date.now() })
-                  console.log(this.thumbnail)
                   resolve(img)
                 })
                 .then((img) => {
@@ -85,7 +81,6 @@ export default {
             }
           }
           this.files = files
-          console.log(files)
           this.uploadError.error = false
           this.uploadError.msg = ''
           // }
