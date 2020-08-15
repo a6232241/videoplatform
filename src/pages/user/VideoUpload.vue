@@ -63,7 +63,7 @@ export default {
                 return new Promise((resolve, reject) => {
                   let img = new Image()
                   img.src = URL.createObjectURL(val[0].blob)
-                  this.thumbnail = new File([val[0].blob], 'thumbnail', { type: val[0].blob.type, lastModified: Date.now() })
+                  this.thumbnail = new File([val[0].blob], this.createAid(), { type: val[0].blob.type, lastModified: Date.now() })
                   resolve(img)
                 })
                 .then((img) => {
@@ -104,6 +104,18 @@ export default {
       } else {
         this.uploadError.msg = '影片未上傳'
       }
+    },
+    createAid () {
+      let aid = Math.random().toString(10).substring(2)
+      let newAid = ''
+      for (let i = 0; i < aid.length; i += 2) {
+        let dec = parseInt(aid.substr(i, 2), 10)
+        if (!(dec === 33 || (dec > 35 && dec < 39) || (dec > 47 && dec < 58) || (dec > 64 && dec < 91) || (dec > 96 && dec < 100))) {
+          dec = Math.floor(100 + Math.random() * (122 - 100 + 1))
+        }
+        newAid += String.fromCharCode(dec)
+      }
+      return newAid
     }
   }
 }
