@@ -1,5 +1,8 @@
 <template>
   <div id="bilibili" ref="bilibili">
+    <div class="videolist">
+      <VideoList></VideoList>
+    </div>
     <div class="bannerRank">
       <bilibili-banner :dataArr="banner" :delay="4000" class="banner"></bilibili-banner>
       <bilibili-rank></bilibili-rank>
@@ -41,7 +44,8 @@
   import BilibiliWrap from '@/components/BilibiliWrap'
   import BilibiliElevator from '@/components/BilibiliElevator'
   import VideoDetail from '@/base/VideoDetail'
-
+  import VideoList from '@/components/VideoList'
+  
   export default {
     name: '',
     data () {
@@ -93,17 +97,17 @@
         this.elevatorLeft = this.$refs.bilibili.getBoundingClientRect().right
       })
       //  滚动监听
-      document.addEventListener('scroll', () => {
-        this.zoneOrigin.forEach((item) => {
-          let top = this.$refs['wrap' + item][0].$el.getBoundingClientRect().top
-          if (top < 300 && top > -10) {
-            this.elevatorActive = item
-          }
-        })
-        if (document.documentElement.scrollTop < 840) {
-          this.elevatorActive = 0
-        }
-      })
+      // document.addEventListener('scroll', () => {
+      //   this.zoneOrigin.forEach((item) => {
+      //     let top = this.$refs['wrap' + item][0].$el.getBoundingClientRect().top
+      //     if (top < 300 && top > -10) {
+      //       this.elevatorActive = item
+      //     }
+      //   })
+      //   if (document.documentElement.scrollTop < 840) {
+      //     this.elevatorActive = 0
+      //   }
+      // })
     },
     methods: {
       async getBanner () {
@@ -164,7 +168,8 @@
       BilibiliRank,
       BilibiliWrap,
       VideoDetail,
-      BilibiliElevator
+      BilibiliElevator,
+      VideoList
     }
   }
 </script>

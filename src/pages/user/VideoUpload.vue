@@ -49,10 +49,6 @@ export default {
     uploadFiles (e) {
       fileApi.verifyType(e, 'video')
         .then(async (files) => {
-          // if (!files.length) {
-          //   fileErr.innerHTML = '<p>No files selected!</p>'
-          // } else {
-          // let preview = document.getElementById('filePreview')
           for (var i = 0; i < files.length; i++) {
             let reader = await fileApi.handleFile(files[i])
             reader.onload = async (e) => {
@@ -83,7 +79,6 @@ export default {
           this.files = files
           this.uploadError.error = false
           this.uploadError.msg = ''
-          // }
         })
         .catch(() => {
           this.uploadError.error = true

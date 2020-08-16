@@ -60,5 +60,25 @@ export default {
         console.log(res.data)
       })
       .catch(resError)
+  },
+  // 主頁API
+  async getThumbnails () {
+    let resData = await userRequest.get('/videoList')
+      .then((res) => {
+        console.log(`取得縮圖 ${res.data.message}`)
+        return res.data.data
+      })
+      .catch(resError)
+    return resData
+  },
+  // 影片API
+  async getVideo (data) {
+    let resData = await userRequest.post('/video', data)
+      .then((res) => {
+        console.log(`取得影片 ${res.data.message}`)
+        return res.data.data[0]
+      })
+      .catch(resError)
+    return resData
   }
 }
