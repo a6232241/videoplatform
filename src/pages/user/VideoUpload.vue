@@ -17,8 +17,6 @@
           <button>上傳</button>
         </form>
       </main>
-      <!-- <input v-on:input="translateText" v-for='(field, key) in registerForm.schema' :key='key' v-model='registerForm.data[key]'> -->
-      <!-- <p v-for='(field, key) in registerForm.data' :key='key'>{{field}}</p> -->
     </div>
   </div>
   
@@ -53,27 +51,29 @@ export default {
             let reader = await fileApi.handleFile(files[i])
             reader.onload = async (e) => {
               let result = e.target.result
-              let previewImg = fileApi.createVideoPreview(result)
-              previewImg
-              .then((val) => {
-                return new Promise((resolve, reject) => {
-                  let img = new Image()
-                  img.src = URL.createObjectURL(val[0].blob)
-                  this.thumbnail = new File([val[0].blob], this.createAid(), { type: val[0].blob.type, lastModified: Date.now() })
-                  resolve(img)
-                })
-                .then((img) => {
-                  let canvas = this.$refs.filePreview
-                  let context = canvas.getContext('2d')
-                  setTimeout(() => {
-                    // 以原尺寸取得圖片大小才能避免模糊
-                    canvas.width = img.width
-                    canvas.height = img.height
-                    context.drawImage(img, 0, 0, canvas.width, canvas.height)
-                    canvas.style.width = '100%'
-                  }, 500)
-                })
-              })
+              let previewImg = await fileApi.createThumbnail(result)
+              // previewImg.src = result
+              console.log(previewImg)
+              // previewImg
+              // .then((val) => {
+              //   return new Promise((resolve, reject) => {
+                  // let img = new Image()
+                  // img.src = URL.createObjectURL(val[0].blob)
+                  // this.thumbnail = new File([val[0].blob], this.createAid(), { type: val[0].blob.type, lastModified: Date.now() })
+                  // resolve(img)
+                // })
+                // .then((img) => {
+                //   let canvas = this.$refs.filePreview
+                //   let context = canvas.getContext('2d')
+                //   setTimeout(() => {
+                //     // 以原尺寸取得圖片大小才能避免模糊
+                //     canvas.width = img.width
+                //     canvas.height = img.height
+                //     context.drawImage(img, 0, 0, canvas.width, canvas.height)
+                //     canvas.style.width = '100%'
+                //   }, 500)
+                // })
+              // })
             }
           }
           this.files = files

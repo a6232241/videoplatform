@@ -41,8 +41,10 @@ export default {
     Promise.all(promiseArr).then(res => {
       res.forEach((item, index) => {
         let {data: {data: res}} = item
-        res = res.slice(0, 7)
-        tmpObj[zoneOrigin[index]] = res
+        if (res !== null) {
+          res = res.slice(0, 7)
+          tmpObj[zoneOrigin[index]] = res
+        }
       })
     })
     console.log('各分区排行数据', tmpObj)

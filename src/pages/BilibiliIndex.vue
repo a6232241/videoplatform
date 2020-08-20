@@ -85,7 +85,7 @@
     },
     mounted () {
       this.elevatorLeft = this.$refs.bilibili.getBoundingClientRect().right
-      this.getBanner()
+      // this.getBanner()
       this.getAllData()
       this.getZoneRank()
       this.getPromote()
@@ -110,9 +110,9 @@
       // })
     },
     methods: {
-      async getBanner () {
-        this.banner = await api.getBanner()
-      },
+      // async getBanner () {
+      //   this.banner = await api.getBanner()
+      // },
       async getAllData () {
         this.allData = await api.getAllData()
       },
@@ -192,9 +192,6 @@
       display: flex;
       justify-content: space-between;
       padding-bottom: 40px;
-      div.banner{
-
-      }
       &:after {
         content: ',';
         display: block;

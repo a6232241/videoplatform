@@ -30,34 +30,6 @@ const routes = [
       title: '註冊'
     }
   },
-  // {
-  // path: '/user',
-  // // name: 'user',
-  // // component: User,
-  // children: [
-  //   {
-  //     path: '',
-  //     // name: 'user',
-  //     // component: UserManage,
-  //     meta: {
-  //       title: '你的空間'
-  //     },
-  //     children: [
-  //       {
-  //         path: '',
-  //         name: 'user'
-  //         // component: UserInformation
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     path: 'videoManage',
-  //     // name: 'videoManage',
-  //     // component: VideoManage,
-  //     meta: {
-  //       title: '你的頻道'
-  //     },
-  //     children: [
   {
     path: '/videoUpload',
     name: 'videoUpload',
@@ -66,10 +38,6 @@ const routes = [
       title: '影片上傳'
     }
   },
-  //       ]
-  //     }
-  //   ]
-  // }
   {
     path: '/video/:videoId',
     name: 'videoPage',
@@ -80,14 +48,6 @@ const routes = [
 const router = new Router({
   mode: 'history',
   routes: routes
-})
-
-router.beforeEach((to, from, next) => {
-  if (to.matched.length === 0) { // 如果未匹配到路由
-    next('/404')
-  } else {
-    next() // 如果匹配到正确跳转
-  }
 })
 
 export default router

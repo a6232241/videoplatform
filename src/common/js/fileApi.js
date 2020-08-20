@@ -1,4 +1,4 @@
-import { Video } from 'video-metadata-thumbnails'
+// import { Video } from 'video-metadata-thumbnails'
 
 export default {
   // 檔案上傳觸發(接收檔案 Elem, input[file] Elem)
@@ -23,7 +23,7 @@ export default {
       }
     })
   },
-  // 將檔案轉為 blob 類型
+  // 將檔案 blob 轉為 data:*/*;/base64 類型
   async handleFile (file) {
     const reader = new FileReader()
     reader.addEventListener('progress', async (event) => {
@@ -32,13 +32,27 @@ export default {
         await console.log(`Progress: ${Math.round(percent)}`)
       }
     })
+    // 將 result 結果以 data/base64 載入
     await reader.readAsDataURL(file)
     return reader
   },
   // 生成影片blob縮圖(video blob) 回傳 array，ex. file[0].blob
-  async createVideoPreview (blob, options = { quality: 1, interval: 6 }) {
-    const video = new Video(blob)
-    let thumbnails = await video.getThumbnails(options)
-    return thumbnails
+  async createThumbnail (blob, options = { quality: 1, interval: 6 }) {
+    let videoElem = document.createElement('video')
+    videoElem.preload = 'metadata'
+    videoElem.muted = true
+    videoElem.volume = 0
+    videoElem.currentTime = 1
+    videoElem.src = typeof blob === 'string' || blob instanceof String ? blob : URL.createObjectURL(blob)
+    let canvas = document.createElement('canvas')
+    let context = canvas.getContext('2d')
+    videoElem.onloadeddata = () => {
+      canvas.width = videoElem.videoWidth
+      canvas.height = videoElem.videoHeight
+      document.body.appendChild(canvas)
+      context.drawImage(videoElem, 0, 0, canvas.width, canvas.height)
+    }
+    // const video = new Video(blob)
+    // let thumbnails = await video.getThumbnails(options)
   }
 }

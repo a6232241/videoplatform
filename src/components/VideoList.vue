@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <div v-for="item in videoThumbnails" :key="item">
+    <div v-for="(item, key) in videoThumbnails" :key="key">
       <video-item :item="item"></video-item>
     </div>
   </div>
