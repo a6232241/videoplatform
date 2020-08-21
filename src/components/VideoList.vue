@@ -26,7 +26,6 @@ export default {
   methods: {
     async getVideoThumbnails () {
       this.videoThumbnails = await axiosApi.getThumbnails()
-      console.log(this.videoThumbnails)
     }
   }
 }

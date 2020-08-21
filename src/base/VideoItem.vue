@@ -1,6 +1,6 @@
 <template>
   <div class="item">
-    <a :href="`${origin}/video/${item.aid}`" target="_blank">
+    <router-link :to="{ path: '/video', query: { aid: `${item.aid}`} }" target="_blank">
       <img :src="item.preview" width="160" height="100">
       <div class="title-small"><div class="text">{{item.title}}</div></div>
       <div class="mask">
@@ -12,7 +12,7 @@
         </div>
         <div class="looklater"></div>
       </div>
-    </a>
+    </router-link>
   </div>
 </template>
 

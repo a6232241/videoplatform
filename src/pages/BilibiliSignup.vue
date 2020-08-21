@@ -45,7 +45,7 @@ export default {
       pwdVal: this.value,
       rePwdVal: this.value,
       mobilePhoneVal: this.value,
-      contractVal: this.value,
+      contractVal: false,
       userError: { error: false, msg: '' },
       pwdError: { error: false, msg: '' },
       rePwdError: { error: false, msg: '' },
@@ -112,9 +112,13 @@ export default {
   },
   methods: {
     async signup () {
-      let form = document.getElementsByClassName('register-form')[0]
-      let formData = new FormData(form)
-      axiosApi.userSignup(formData)
+      if (this.userError.error || this.pwdError.error || this.rePwdError.error || this.mobilePhoneError) {
+        alert('輸入內容有錯誤')
+      } else {
+        let form = document.getElementsByClassName('register-form')[0]
+        let formData = new FormData(form)
+        axiosApi.userSignup(formData)
+      }
     }
     // getRequired () {
     //   return this.userError.error && this.pwdError.error && this.rePwdError.error && this.mobilePhoneError.error

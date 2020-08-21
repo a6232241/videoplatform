@@ -12,26 +12,35 @@ router.post('/signup', multer.array(), async (ctx) => {
   }
   let sql = 'SELECT name FROM users WHERE name = ?'
   let resSql = await query(sql, [res.username])
+
+  let replayData = {}
   if (resSql[0] !== undefined) {
-    ctx.body = `帳號重複，請重新設定新的帳號`
+    replayData = {
+      status: false,
+      message: `帳號重複，請重新設定新的帳號`
+    }
   } else {
     sql = 'INSERT INTO users(name,password, mobilephone) VALUE(?, ?, ?)'
     query(sql, Object.values(res))
-    ctx.body = `註冊成功`
+    replayData = {
+      status: true,
+      message: `註冊成功`
+    }
   }
+  ctx.body = replayData
 })
 
 router.post('/login', multer.array(), async (ctx) => {
-  let loginData = {}
   let res = {
     username: ctx.request.body.username,
     pwd: ctx.request.body.pwd,
   }
-
   let sql = 'SELECT id, MD5(UNIX_TIMESTAMP() + id + RAND(UNIX_TIMESTAMP())) guid FROM users WHERE name = ? AND password = ?'
   let resSql = await query(sql, Object.values(res))
+
+  let replayData = {}
   if (resSql[0] === undefined) {
-    loginData = {
+    replayData = {
       status: false,
       message: `帳號錯誤，請重新輸入帳號或密碼`,
     }
@@ -47,13 +56,13 @@ router.post('/login', multer.array(), async (ctx) => {
     // if(ctx.request.body.contract === 'true') {
     // ctx.session.guid = resSqlData.guid
     // }
-    loginData = {
+    replayData = {
       status: true,
       message: `登入成功`,
       guid: resSqlData.guid
     }
   }
-  ctx.body = loginData
+  ctx.body = replayData
 })
 
 router.get('/logout', async (ctx) => {

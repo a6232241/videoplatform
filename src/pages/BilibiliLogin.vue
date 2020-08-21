@@ -77,10 +77,14 @@ export default {
   },
   methods: {
     async login () {
-      let form = document.getElementsByClassName('register-form')[0]
-      let formData = new FormData(form)
-      formData.append('contract', this.contractVal)
-      await axiosApi.userLogin(formData)
+      if (this.userError.error || this.pwdError.error) {
+        alert('輸入內容有錯誤')
+      } else {
+        let form = document.getElementsByClassName('register-form')[0]
+        let formData = new FormData(form)
+        formData.append('contract', this.contractVal)
+        await axiosApi.userLogin(formData)
+      }
     }
   }
 }

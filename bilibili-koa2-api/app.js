@@ -50,7 +50,12 @@ const channelRouter = require('./routes/channelRouter')
 onerror(app)
 
 app.use(cors({
-  origin: [ 'http://localhost:8080'], // 允许这个域名的 跨域请求
+  origin: (ctx) => {
+    if(ctx.url === '/') {
+      return "*"
+    }
+    return 'http://127.0.0.1:5501'
+  }, // 允许这个域名的 跨域请求
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
   maxAge: 5,
   credentials: true,

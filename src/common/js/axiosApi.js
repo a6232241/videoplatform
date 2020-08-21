@@ -17,8 +17,11 @@ export default {
   async userSignup (data) {
     await userRequest.post('/signup', data)
       .then((res) => {
-        alert(res.data)
-        window.location.pathname = '/'
+        let resData = res.data
+        alert(resData.message)
+        if (resData.status) {
+          window.location.pathname = '/'
+        }
       })
       .catch(resError)
   },
@@ -26,11 +29,11 @@ export default {
     await userRequest.post('/login', data)
       .then((res) => {
         let resData = res.data
+        alert(resData.message)
         if (resData.status) {
           storage.setStorage('guid', resData.guid)
+          window.location.pathname = '/'
         }
-        alert(resData.message)
-        window.location.pathname = '/'
       })
       .catch(resError)
   },

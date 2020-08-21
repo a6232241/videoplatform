@@ -46,18 +46,18 @@
           <div class="user">
             <ul v-if="!loggedIn" class='user-icon login'>
               <li @mouseover="showLogin_signup" @mouseleave="hideLogin_signup">
-                <a href='/login' class='userControl'>登錄</a>
+                <router-link to='/login' class='userControl'>登錄</router-link>
                 <HeaderSlide class='login_signup' ref='login_signup'>
                   <button slot='btn'>
-                    <a href='/signup' class='userControl signup' style="display:block">註冊</a>
+                    <router-link to='/signup' class='userControl signup' style="display:block">註冊</router-link>
                   </button>
                   <button slot='btn'>
-                    <a href='/login' class='userControl' style="display:block">登錄</a>
+                    <router-link to='/login' class='userControl' style="display:block">登錄</router-link>
                   </button>
                 </HeaderSlide>
               </li>
               <li>
-                <a href='/signup' class='userControl signup'>註冊</a>
+                <router-link to='/signup' class='userControl signup'>註冊</router-link>
               </li>
             </ul>
             <ul  v-if="loggedIn" >
@@ -195,7 +195,7 @@
                       <a style="background:url(//static.hdslb.com/images/base/icons.png) no-repeat -507px -970px;">音频投稿</a>
                     </li>
                     <li>
-                      <a href="/videoUpload" style="background:url(//static.hdslb.com/images/base/icons.png) no-repeat -442px -906px;">视频投稿</a>
+                      <router-link to="/videoUpload" style="background:url(//static.hdslb.com/images/base/icons.png) no-repeat -442px -906px;">视频投稿</router-link>
                     </li>
                     <li>
                       <a style="background:url(//static.hdslb.com/images/base/icons.png) no-repeat -442px -970px;">投稿管理</a>

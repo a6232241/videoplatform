@@ -24,7 +24,7 @@ export default {
   },
   data () {
     return {
-      videoAid: this.$route.params.videoId,
+      videoAid: this.$route.query.aid,
       videoData: null
     }
   },
@@ -55,8 +55,6 @@ export default {
 main {
   & > div {
     text-align: center;
-    video {
-    }
   }
 }
 </style>
