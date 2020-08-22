@@ -32,7 +32,7 @@ const routes = [
   },
   {
     path: '/videoUpload',
-    name: 'videoUpload',
+    name: 'VideoUpload',
     component: VideoUpload,
     meta: {
       title: '影片上傳'
@@ -40,7 +40,7 @@ const routes = [
   },
   {
     path: '/video/:aid?',
-    name: 'videoPage',
+    name: 'VideoPage',
     component: VideoPage
   }
 ]

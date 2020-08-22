@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main v-if="videoData">
     <div>
       <video ref="videoMain" :src="videoData.path" controls></video>
     </div>
