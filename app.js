@@ -3,7 +3,7 @@
 var fs = require('fs')
 var path = require('path')
 var express = require('express')
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 8080
 
 var app = express()
 app.use(express["static"](path.resolve(__dirname, './dist')))
