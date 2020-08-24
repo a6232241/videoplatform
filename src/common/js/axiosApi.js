@@ -4,7 +4,7 @@ import storage from '@/common/js/storageApi'
 
 const userRequest = axios.create({
   withCredentials: true,
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://streamingplatserver.herokuapp.com',
   headers: { 'content-type': 'multipart/form-data' }
 })
 

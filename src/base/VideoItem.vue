@@ -1,7 +1,7 @@
 <template>
   <div class="item">
     <router-link :to="{ path: '/video', query: { aid: `${item.aid}`} }">
-      <img :src="item.preview" width="160" height="100">
+      <img :src="`https://streamingplatserver.herokuapp.com${item.preview}`" width="160" height="100">
       <div class="title-small"><div class="text">{{item.title}}</div></div>
       <div class="mask">
         <div class="title">

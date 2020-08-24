@@ -1,7 +1,7 @@
 <template>
   <main v-if="videoData">
     <div>
-      <video ref="videoMain" :src="videoData.path" controls></video>
+      <video ref="videoMain" :src="`https://streamingplatserver.herokuapp.com${videoData.path}`" controls></video>
     </div>
     <h2>{{videoData.title}}</h2>
     <p>作者：{{videoData.author}}</p>

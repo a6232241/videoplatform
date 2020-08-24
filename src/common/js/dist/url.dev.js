@@ -1,6 +1,11 @@
-const host = 'https://streamingplatserver.herokuapp.com/'
+"use strict";
 
-export const url = {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.url = void 0;
+var host = 'https://streamingplatserver.herokuapp.com/';
+var url = {
   getImg: host + 'image/dynamic/',
   getPreImg: host + 'image/preView/',
   banner: host + 'banner',
@@ -19,4 +24,5 @@ export const url = {
   newList: host + 'newList?content=',
   comment: host + 'comment',
   getPreView: host + 'getPreView'
-}
+};
+exports.url = url;
