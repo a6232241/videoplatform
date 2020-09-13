@@ -1,9 +1,12 @@
-# 影片平台
+# 影音平台
 
-***
+### 簡介
+實現影音平台的登入註冊、影片上傳、連結縮圖及觀看影片等功能
 
 ### 實體網址
-[streamingplatform](https://streamingplatform.herokuapp.com/)
+[前端](https://streamingplatform.herokuapp.com/)
+
+[後端](https://streamingplatserver.herokuapp.com/)
 
 ### 參考
 [国庆挖个坑用vue写个bilibili](https://summerscar.me/2017/10/01/%E5%9B%BD%E5%BA%86%E6%8C%96%E4%B8%AA%E5%9D%91%E7%94%A8vue%E5%86%99%E4%B8%AAbilibili/)
